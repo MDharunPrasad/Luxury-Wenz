@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home, Search, PlusCircle, Building, TrendingUp, Info, MessageCircle, BookOpen, User } from 'lucide-react';
+import { Menu, X, Home, Search, Info, MessageCircle, User, Building } from 'lucide-react';
 
 export const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,16 +17,13 @@ export const Navigation: React.FC = () => {
 
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
-    { path: '/buy', label: 'Buy', icon: Search },
-    { path: '/rent', label: 'Rent', icon: Search },
-    { path: '/sell', label: 'Sell', icon: PlusCircle },
-    { path: '/projects', label: 'Projects', icon: Building },
-    { path: '/investors', label: 'Investors', icon: TrendingUp },
+    { path: '/listings', label: 'Listings', icon: Search },
     { path: '/about', label: 'About', icon: Info },
     { path: '/contact', label: 'Contact', icon: MessageCircle },
-    { path: '/blog', label: 'Blog', icon: BookOpen },
-    { path: '/dashboard', label: 'Dashboard', icon: User },
+    { path: '/admin', label: 'Admin', icon: User },
   ];
+
+  const isDarkHero = !isScrolled && location.pathname === '/';
 
   return (
     <>
@@ -35,7 +32,7 @@ export const Navigation: React.FC = () => {
           ? 'bg-white/10 backdrop-blur-md border-b border-white/20' 
           : 'bg-transparent'
       }`}>
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="group flex items-center space-x-3">
@@ -43,7 +40,7 @@ export const Navigation: React.FC = () => {
                 <Building className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-playfair font-bold text-jet">Flaunt</h1>
+                <h1 className="text-xl font-playfair font-bold text-jet">Wenzhomes</h1>
                 <p className="text-xs text-emerald font-medium">Luxury Real Estate</p>
               </div>
             </Link>
@@ -59,9 +56,9 @@ export const Navigation: React.FC = () => {
                     key={item.path}
                     to={item.path}
                     className={`group relative flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                      isActive 
-                        ? 'text-emerald bg-white/10' 
-                        : 'text-jet hover:text-emerald hover:bg-white/5'
+                      isActive
+                        ? 'text-emerald bg-white/10'
+                        : `${isDarkHero ? 'text-white' : 'text-jet'} hover:text-emerald hover:bg-white/5`
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -73,22 +70,22 @@ export const Navigation: React.FC = () => {
                 );
               })}
               
-              {/* Dashboard Button */}
+              {/* Admin Button */}
               <Link
-                to="/dashboard"
+                to="/admin"
                 className="flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
                 <User className="w-4 h-4" />
-                <span>Dashboard</span>
+                <span>Admin</span>
               </Link>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-colors duration-300"
+              className={`lg:hidden p-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-colors duration-300 ${isDarkHero ? 'bg-white/10' : 'bg-white/10'}`}
             >
-              {isOpen ? <X className="w-6 h-6 text-jet" /> : <Menu className="w-6 h-6 text-jet" />}
+              {isOpen ? <X className={`w-6 h-6 ${isDarkHero ? 'text-white' : 'text-jet'}`} /> : <Menu className={`w-6 h-6 ${isDarkHero ? 'text-white' : 'text-jet'}`} />}
             </button>
           </div>
         </div>
@@ -98,7 +95,7 @@ export const Navigation: React.FC = () => {
           isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="bg-white/95 backdrop-blur-md border-t border-white/20">
-            <div className="container mx-auto px-6 py-4">
+            <div className="container mx-auto px-4 sm:px-6 py-4">
               <div className="space-y-2">
                 {navItems.map((item) => {
                   const Icon = item.icon;

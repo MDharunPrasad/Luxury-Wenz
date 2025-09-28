@@ -2,8 +2,9 @@ import React from 'react';
 import { HeroSection } from '../components/home/HeroSection';
 import { FeaturedProperties } from '../components/home/FeaturedProperties';
 import { LuxuryServices } from '../components/home/LuxuryServices';
-import { MarketInsights } from '../components/home/MarketInsights';
+// MarketInsights removed per request
 import { TestimonialsSection } from '../components/home/TestimonialsSection';
+import { Footer } from '../components/Footer';
 
 export const Home: React.FC = () => {
   return (
@@ -11,8 +12,9 @@ export const Home: React.FC = () => {
       <HeroSection />
       <FeaturedProperties />
       <LuxuryServices />
-      <MarketInsights />
+      {/* MarketInsights removed */}
       <TestimonialsSection />
+      <Footer />
     </div>
   );
 };

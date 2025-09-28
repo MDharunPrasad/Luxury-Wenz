@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Search, MapPin, DollarSign, Home, Key, ArrowRight } from 'lucide-react';
+import { Search, MapPin, DollarSign, Home as HomeIcon, ArrowRight } from 'lucide-react';
 
 export const HeroSection: React.FC = () => {
-  const [searchType, setSearchType] = useState('buy');
   const [location, setLocation] = useState('');
   const [budget, setBudget] = useState('');
+  const [propertyType, setPropertyType] = useState('');
 
   const handleSearch = () => {
     console.log('Searching:', { searchType, location, budget });
@@ -39,51 +39,26 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-20 container mx-auto px-6 text-center">
+      <div className="relative z-20 container mx-auto px-4 sm:px-6 text-center">
         <div className="animate-fade-in-up">
-          <h1 className="font-playfair text-6xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+          <h1 className="font-playfair text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-6 leading-tight">
             Luxury Beyond
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-champagne via-platinum to-emerald">
               Imagination
             </span>
           </h1>
-          <p className="text-xl lg:text-2xl text-platinum/90 mb-12 max-w-3xl mx-auto font-light">
+          <p className="text-lg sm:text-xl lg:text-2xl text-platinum/90 mb-8 sm:mb-12 max-w-3xl mx-auto font-light">
             Discover extraordinary properties in the world's most prestigious locations. 
             Your dream home awaits in our curated collection of luxury real estate.
           </p>
 
           {/* Floating Glass Search Bar */}
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:bg-white/15 group">
-              {/* Search Type Selector */}
-              <div className="flex justify-center mb-8">
-                <div className="bg-white/20 backdrop-blur-sm rounded-full p-1 inline-flex space-x-1">
-                  {[
-                    { value: 'buy', label: 'Buy', icon: Home },
-                    { value: 'rent', label: 'Rent', icon: Key },
-                    { value: 'sell', label: 'Sell', icon: DollarSign },
-                  ].map((type) => {
-                    const Icon = type.icon;
-                    return (
-                      <button
-                        key={type.value}
-                        onClick={() => setSearchType(type.value)}
-                        className={`flex items-center space-x-2 px-6 py-3 rounded-full font-medium transition-all duration-300 ${
-                          searchType === type.value
-                            ? 'bg-gradient-to-r from-emerald to-champagne text-white shadow-lg'
-                            : 'text-white hover:bg-white/10'
-                        }`}
-                      >
-                        <Icon className="w-4 h-4" />
-                        <span>{type.label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 lg:p-8 border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:bg-white/15 group">
+              {/* Removed buy/rent/sell toggle */}
 
               {/* Search Fields */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 sm:mb-8">
                 <div className="relative">
                   <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-champagne w-5 h-5" />
                   <input
@@ -93,6 +68,23 @@ export const HeroSection: React.FC = () => {
                     onChange={(e) => setLocation(e.target.value)}
                     className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/10 border border-white/30 text-white placeholder-platinum/70 focus:outline-none focus:ring-2 focus:ring-emerald/50 focus:border-emerald/50 transition-all duration-300"
                   />
+                </div>
+
+                <div className="relative">
+                  <HomeIcon className="absolute left-4 top-1/2 transform -translate-y-1/2 text-champagne w-5 h-5" />
+                  <select
+                    value={propertyType}
+                    onChange={(e) => setPropertyType(e.target.value)}
+                    className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/10 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-emerald/50 focus:border-emerald/50 transition-all duration-300 appearance-none"
+                  >
+                    <option value="" className="text-jet">Property Type</option>
+                    <option value="apartment" className="text-jet">Apartment</option>
+                    <option value="villa" className="text-jet">Villa</option>
+                    <option value="townhouse" className="text-jet">Townhouse</option>
+                    <option value="condo" className="text-jet">Condo</option>
+                    <option value="loft" className="text-jet">Loft</option>
+                    <option value="house" className="text-jet">House</option>
+                  </select>
                 </div>
 
                 <div className="relative">

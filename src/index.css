@@ -1,3 +1,152 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom responsive utilities */
+@layer utilities {
+  /* Better mobile spacing */
+  .container {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Improved text scaling */
+  .text-responsive-xl {
+    @apply text-2xl sm:text-3xl lg:text-4xl xl:text-5xl;
+  }
+  
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+  
+  /* Better grid responsiveness */
+  .grid-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+  }
+  
+  /* Mobile-first padding */
+  .section-padding {
+    @apply py-8 sm:py-12 lg:py-16 xl:py-20;
+  }
+  
+  /* Better mobile navigation */
+  .nav-mobile {
+    @apply fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200;
+  }
+  
+  /* Improved button responsiveness */
+  .btn-responsive {
+    @apply px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4;
+  }
+  
+  /* Better form responsiveness */
+  .form-responsive {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4;
+  }
+  
+  /* Image responsiveness */
+  .img-responsive {
+    @apply w-full h-auto object-cover;
+  }
+  
+  /* Better card responsiveness */
+  .card-responsive {
+    @apply bg-white/80 backdrop-blur-md rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+}
+
+/* Custom animations for better mobile experience */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slowZoom {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-slow-zoom {
+  animation: slowZoom 20s ease-in-out infinite;
+}
+
+/* Better mobile touch targets */
+@media (max-width: 768px) {
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Improve mobile text readability */
+  .mobile-text {
+    @apply text-base leading-relaxed;
+  }
+  
+  /* Better mobile spacing */
+  .mobile-spacing {
+    @apply space-y-4;
+  }
+  
+  /* Mobile-optimized images */
+  .mobile-img {
+    @apply h-48 sm:h-64 md:h-80;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tablet-grid {
+    @apply grid-cols-2;
+  }
+  
+  .tablet-text {
+    @apply text-lg;
+  }
+}
+
+/* Desktop optimizations */
+@media (min-width: 1024px) {
+  .desktop-grid {
+    @apply grid-cols-3;
+  }
+  
+  .desktop-text {
+    @apply text-xl;
+  }
+  
+  .desktop-spacing {
+    @apply space-y-8;
+  }
+}
+
+/* Ultra-wide screen optimizations */
+@media (min-width: 1536px) {
+  .ultra-wide-container {
+    @apply max-w-7xl;
+  }
+}

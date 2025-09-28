@@ -2,15 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { Home } from './pages/Home';
-import { Buy } from './pages/Buy';
-import { Rent } from './pages/Rent';
-import { Sell } from './pages/Sell';
-import { Projects } from './pages/Projects';
-import { Investors } from './pages/Investors';
+import { Listings } from './pages/Listings';
+import { PropertyDetails } from './pages/PropertyDetails';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { Blog } from './pages/Blog';
-import { Dashboard } from './pages/Dashboard';
+import { AdminLogin } from './pages/AdminLogin';
+import { AdminPanel } from './pages/AdminPanel';
 
 function App() {
   return (
@@ -19,15 +17,13 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/buy" element={<Buy />} />
-          <Route path="/rent" element={<Rent />} />
-          <Route path="/sell" element={<Sell />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/investors" element={<Investors />} />
+          <Route path="/listings" element={<Listings />} />
+          <Route path="/property/:id" element={<PropertyDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/panel" element={<AdminPanel />} />
         </Routes>
       </div>
     </Router>
