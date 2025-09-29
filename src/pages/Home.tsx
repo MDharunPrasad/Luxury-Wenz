@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeroSection } from '../components/home/HeroSection';
+import HeroSection from '../components/home/HeroSection';
 import { FeaturedProperties } from '../components/home/FeaturedProperties';
 import { LuxuryServices } from '../components/home/LuxuryServices';
 // MarketInsights removed per request

@@ -167,10 +167,13 @@ export const FeaturedProperties: React.FC = () => {
 
         {/* View All Button */}
         <div className="text-center mt-16">
-          <button className="inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 group">
+          <a 
+            href="/listings"
+            className="inline-flex items-center space-x-3 px-8 py-4 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-semibold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+          >
             <span>Explore All Properties</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-          </button>
+          </a>
         </div>
       </div>
     </section>

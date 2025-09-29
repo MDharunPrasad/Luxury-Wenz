@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { Home } from './pages/Home';
@@ -9,6 +8,7 @@ import { Contact } from './pages/Contact';
 import { Blog } from './pages/Blog';
 import { AdminLogin } from './pages/AdminLogin';
 import { AdminPanel } from './pages/AdminPanel';
+import ThreeDemo from './pages/ThreeDemo';
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/panel" element={<AdminPanel />} />
+          <Route path="/three-demo" element={<ThreeDemo />} />
         </Routes>
       </div>
     </Router>

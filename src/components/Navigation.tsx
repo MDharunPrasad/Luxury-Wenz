@@ -29,8 +29,8 @@ export const Navigation: React.FC = () => {
     <>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
-          ? 'bg-white/10 backdrop-blur-md border-b border-white/20' 
-          : 'bg-transparent'
+          ? 'bg-[#1e305e]/95 backdrop-blur-md border-b border-white/20' 
+          : 'bg-[#1e305e]/90 backdrop-blur-md'
       }`}>
         <div className="container mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
@@ -40,8 +40,8 @@ export const Navigation: React.FC = () => {
                 <Building className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-xl font-playfair font-bold text-jet">Wenzhomes</h1>
-                <p className="text-xs text-emerald font-medium">Luxury Real Estate</p>
+                <h1 className="text-xl font-playfair font-bold text-white">Wenzhomes</h1>
+                <p className="text-xs text-champagne font-medium">Luxury Real Estate</p>
               </div>
             </Link>
 
@@ -57,15 +57,12 @@ export const Navigation: React.FC = () => {
                     to={item.path}
                     className={`group relative flex items-center space-x-2 px-4 py-2 rounded-full transition-all duration-300 ${
                       isActive
-                        ? 'text-emerald bg-white/10'
-                        : `${isDarkHero ? 'text-white' : 'text-jet'} hover:text-emerald hover:bg-white/5`
+                        ? 'text-champagne bg-white/10'
+                        : 'text-white/80 hover:text-champagne hover:bg-white/5'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
                     <span className="font-medium">{item.label}</span>
-                    <div className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald to-champagne transform transition-transform duration-300 ${
-                      isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                    }`} />
                   </Link>
                 );
               })}
@@ -83,9 +80,9 @@ export const Navigation: React.FC = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`lg:hidden p-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-colors duration-300 ${isDarkHero ? 'bg-white/10' : 'bg-white/10'}`}
+              className="lg:hidden p-2 rounded-full backdrop-blur-md hover:bg-white/20 transition-colors duration-300 bg-white/10"
             >
-              {isOpen ? <X className={`w-6 h-6 ${isDarkHero ? 'text-white' : 'text-jet'}`} /> : <Menu className={`w-6 h-6 ${isDarkHero ? 'text-white' : 'text-jet'}`} />}
+              {isOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
             </button>
           </div>
         </div>
@@ -94,7 +91,7 @@ export const Navigation: React.FC = () => {
         <div className={`lg:hidden transition-all duration-300 overflow-hidden ${
           isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         }`}>
-          <div className="bg-white/95 backdrop-blur-md border-t border-white/20">
+          <div className="bg-[#1e305e]/95 backdrop-blur-md border-t border-white/20">
             <div className="container mx-auto px-4 sm:px-6 py-4">
               <div className="space-y-2">
                 {navItems.map((item) => {
@@ -108,8 +105,8 @@ export const Navigation: React.FC = () => {
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-300 ${
                         isActive 
-                          ? 'text-emerald bg-emerald/10' 
-                          : 'text-jet hover:text-emerald hover:bg-emerald/5'
+                          ? 'text-champagne bg-white/20' 
+                          : 'text-white hover:text-champagne hover:bg-white/10'
                       }`}
                     >
                       <Icon className="w-5 h-5" />

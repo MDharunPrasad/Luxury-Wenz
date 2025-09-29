@@ -14,12 +14,14 @@ export const AdminLogin: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simple local auth for demo
+    // Simple local auth for demo - accept any email/password combination
     setTimeout(() => {
       setIsLoading(false);
       if (formData.email && formData.password) {
         localStorage.setItem('wenz_admin', '1');
         window.location.href = '/admin/panel';
+      } else {
+        alert('Please enter both email and password');
       }
     }, 600);
   };
@@ -41,7 +43,7 @@ export const AdminLogin: React.FC = () => {
               <Building className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-playfair font-bold text-jet">Flaunt</h1>
+              <h1 className="text-2xl font-playfair font-bold text-jet">Wenzhomes</h1>
               <p className="text-sm text-emerald font-medium">Luxury Real Estate</p>
             </div>
           </Link>
@@ -70,7 +72,7 @@ export const AdminLogin: React.FC = () => {
                 onChange={handleChange}
                 required
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-emerald focus:ring-2 focus:ring-emerald/20 transition-all duration-300 bg-white/50 backdrop-blur-sm"
-                placeholder="admin@flaunt.com"
+                placeholder="admin@wenzhomes.com"
               />
             </div>
 

@@ -96,25 +96,6 @@ export const LuxuryServices: React.FC = () => {
           })}
         </div>
 
-        {/* CTA Section */}
-        <div className="mt-20 text-center">
-          <div className="max-w-4xl mx-auto p-8 rounded-3xl bg-gradient-to-r from-emerald/20 to-champagne/20 backdrop-blur-sm border border-white/20">
-            <h3 className="font-playfair text-3xl font-bold mb-4">
-              Ready to Experience Luxury Real Estate?
-            </h3>
-            <p className="text-platinum/80 text-lg mb-8">
-              Let our team of luxury real estate experts guide you to your perfect property.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-4 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                Schedule Consultation
-              </button>
-              <button className="px-8 py-4 rounded-full border-2 border-white/30 text-white font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300">
-                View Portfolio
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

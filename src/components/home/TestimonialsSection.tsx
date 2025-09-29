@@ -56,10 +56,10 @@ export const TestimonialsSection: React.FC = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="group animate-fade-in-up"
+              className="group animate-fade-in-up h-full"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2 transform-gpu relative overflow-hidden">
+              <div className="h-full flex flex-col p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-500 hover:-translate-y-2 transform-gpu relative overflow-hidden" style={{ minHeight: '400px' }}>
                 {/* Quote Icon */}
                 <div className="absolute top-6 right-6 opacity-20">
                   <Quote className="w-8 h-8 text-champagne" />
@@ -73,12 +73,12 @@ export const TestimonialsSection: React.FC = () => {
                 </div>
 
                 {/* Testimonial Text */}
-                <p className="text-platinum/90 text-lg leading-relaxed mb-8 italic">
+                <p className="text-platinum/90 text-lg leading-relaxed mb-8 italic flex-grow">
                   "{testimonial.text}"
                 </p>
 
                 {/* Client Info */}
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 mt-auto">
                   <div className="relative">
                     <img
                       src={testimonial.image}

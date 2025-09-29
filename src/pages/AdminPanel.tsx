@@ -32,14 +32,21 @@ export const AdminPanel: React.FC = () => {
   };
 
   const addProperty = () => {
-    if (!form.title || !form.price || !form.location || (form.images[0] || '').trim() === '') return;
+    if (!form.title || !form.price || !form.location || (form.images[0] || '').trim() === '') {
+      alert('Please fill in all required fields (Title, Price, Location, and at least one image)');
+      return;
+    }
     const list = [...properties, { ...form, id: Date.now() }];
     saveAll(list);
     setForm({ ...form, title: '', location: '', price: '', area: '', images: [''], tags: [] });
+    alert('Property added successfully!');
   };
 
   const removeProperty = (id: number) => {
-    saveAll(properties.filter(p => p.id !== id));
+    if (confirm('Are you sure you want to remove this property?')) {
+      saveAll(properties.filter(p => p.id !== id));
+      alert('Property removed successfully!');
+    }
   };
 
   if (!isAuthed) {
