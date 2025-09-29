@@ -32,17 +32,17 @@ const team = [
   {
     name: 'Alex Johnson',
     role: 'Founder & CEO',
-    image: 'https://randomuser.me/api/portraits/men/32.jpg',
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&auto=format&fit=crop&q=80',
   },
   {
     name: 'Sarah Williams',
     role: 'Head of Sales',
-    image: 'https://randomuser.me/api/portraits/women/44.jpg',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80',
   },
   {
     name: 'Michael Chen',
     role: 'Luxury Specialist',
-    image: 'https://randomuser.me/api/portraits/men/22.jpg',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80',
   },
 ];
 
