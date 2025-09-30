@@ -20,10 +20,8 @@ export const Navigation: React.FC = () => {
     { path: '/listings', label: 'Listings', icon: Search },
     { path: '/about', label: 'About', icon: Info },
     { path: '/contact', label: 'Contact', icon: MessageCircle },
-    { path: '/admin', label: 'Admin', icon: User },
+    { path: '/admin/login', label: 'Admin', icon: User },
   ];
-
-  const isDarkHero = !isScrolled && location.pathname === '/';
 
   return (
     <>
@@ -69,7 +67,7 @@ export const Navigation: React.FC = () => {
               
               {/* Admin Button */}
               <Link
-                to="/admin"
+                to="/admin/login"
                 className="flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
                 <User className="w-4 h-4" />
