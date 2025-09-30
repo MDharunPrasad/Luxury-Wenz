@@ -1,30 +1,32 @@
-import React, { FC, useState } from 'react';
+import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { 
-  ArrowLeft, 
-  Heart, 
-  Share2, 
-  MapPin, 
-  Bed, 
-  Bath, 
-  Ruler, 
+import {
+  ArrowLeft,
+  Heart,
+  Share2,
+  MapPin,
+  Bed,
+  Bath,
+  Ruler,
   Car,
-  Mail,
   Phone,
+  Mail,
+  Star,
   ChevronLeft,
-  ChevronRight,
-  Star
+  ChevronRight
 } from 'lucide-react';
 
-const PropertyDetails: FC = () => {
+const PropertyDetails = () => {
   const { id } = useParams();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [inquiryForm, setInquiryForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
+  };
 
   // Sample property data - replace with actual data from your API
   const property = {
@@ -42,7 +44,7 @@ const PropertyDetails: FC = () => {
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
       'https://images.unsplash.com/photo-1600607687929-597b7d5f7c1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
       'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'
     ],
     agent: {
       name: 'Sarah Johnson',
@@ -50,41 +52,17 @@ const PropertyDetails: FC = () => {
       phone: '(555) 123-4567',
       email: 'sarah.johnson@luxurywenz.com',
       image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=634&q=80',
-      rating: '5.0',
-      propertiesSold: 127
+      rating: '5',
+      propertiesSold: '42'
     }
-  };
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % property.images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setInquiryForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Inquiry submitted:', inquiryForm);
-    alert('Thank you for your inquiry! We will contact you soon.');
-    setInquiryForm({ name: '', email: '', phone: '', message: '' });
   };
 
   return (
     <div className="min-h-screen bg-ivory pt-20">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <Link 
-            to="/listings" 
+          <Link
+            to="/listings"
             className="inline-flex items-center text-emerald hover:text-emerald/80 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -107,7 +85,7 @@ const PropertyDetails: FC = () => {
                     target.src = 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80';
                   }}
                 />
-                
+
                 {/* Navigation Arrows */}
                 <button
                   onClick={prevImage}
@@ -145,11 +123,10 @@ const PropertyDetails: FC = () => {
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`flex-shrink-0 w-24 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 transform hover:scale-105 ${
-                        index === currentImageIndex 
-                          ? 'border-emerald scale-105 shadow-md' 
+                      className={`flex-shrink-0 w-24 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 transform hover:scale-105 ${index === currentImageIndex
+                          ? 'border-emerald scale-105 shadow-md'
                           : 'border-gray-200 hover:border-emerald/50'
-                      }`}
+                        }`}
                     >
                       <div className="relative w-full h-full">
                         <img
@@ -167,7 +144,7 @@ const PropertyDetails: FC = () => {
                         )}
                       </div>
                     </button>
-                ))}
+                  ))}
                 </div>
               </div>
             </div>
@@ -179,7 +156,7 @@ const PropertyDetails: FC = () => {
                 <MapPin className="w-5 h-5 mr-1" />
                 <span>{property.location}</span>
               </div>
-              
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <div className="text-gray-500 text-sm">Bedrooms</div>
@@ -220,124 +197,82 @@ const PropertyDetails: FC = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             {/* Price Box */}
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 text-white rounded-xl p-6 text-center shadow-lg">
-              <div className="text-4xl font-bold mb-2 tracking-tight drop-shadow-md">{property.formattedPrice}</div>
-              <div className="text-emerald-100 font-medium text-lg mb-4">For Sale</div>
-              <button className="mt 2 w-full bg-white text-emerald-700 font-semibold py-3 px-6 rounded-lg hover:bg-opacity-90 transition-all transform hover:-translate-y-0.5 hover:shadow-md">
-                Schedule a Tour
-              </button>
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <div className="text-4xl font-bold text-gray-900 mb-2">{property.formattedPrice}</div>
+              <div className="text-emerald-600 font-medium text-lg mb-4">For Sale</div>
+
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="flex-1 border-t border-gray-200"></div>
+                <span className="text-sm text-gray-500">or</span>
+                <div className="flex-1 border-t border-gray-200"></div>
+              </div>
+
+              <div className="text-center">
+                <div className="text-sm text-gray-500 mb-3">Est. Mortgage $9,000/mo</div>
+                <button className="text-sm text-emerald-600 hover:underline">
+                  Get Pre-Approved
+                </button>
+              </div>
             </div>
 
-            {/* Contact Form */}
+            {/* Contact Agent */}
             <div className="bg-white rounded-xl shadow-md p-6">
               <h3 className="text-xl font-semibold mb-4">Contact Agent</h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={inquiryForm.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={inquiryForm.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number"
-                    value={inquiryForm.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  />
-                </div>
-                <div>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    placeholder="Your Message"
-                    value={inquiryForm.message}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-emerald-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-emerald-700 transition-colors"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
 
-            {/* Agent Info */}
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-6 text-white">
-                <h3 className="text-xl font-semibold mb-4">Contact Agent</h3>
-                <div className="flex items-center space-x-4">
-                  <div className="relative w-20 h-20 rounded-full border-4 border-white/20 overflow-hidden flex-shrink-0">
-                    <img
-                      src={property.agent.image}
-                      alt={property.agent.name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.onerror = null;
-                        target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(property.agent.name)}&background=0D8ABC&color=fff&size=160`;
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg">{property.agent.name}</h4>
-                    <p className="text-emerald-100 text-sm">{property.agent.title}</p>
-                    <div className="flex items-center mt-1">
-                      <div className="flex">
-                        {[1, 2, 3, 4, 5].map((star) => (
-                          <Star 
-                            key={star} 
-                            className={`w-4 h-4 ${star <= Math.floor(parseFloat(property.agent.rating)) ? 'text-yellow-300 fill-current' : 'text-white/30'}`} 
-                          />
-                        ))}
-                      </div>
-                      <span className="text-emerald-100 text-sm ml-1">({property.agent.propertiesSold} sold)</span>
+              {/* Agent Info */}
+              <div className="flex items-center mb-6">
+                <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
+                  <img
+                    src="/agent-sarah.jpg"
+                    alt="Sarah Johnson"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null;
+                      target.src = 'https://randomuser.me/api/portraits/women/44.jpg';
+                    }}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-lg">Sarah Johnson</h4>
+                  <p className="text-gray-600 text-sm">Real Estate Agent</p>
+                  <div className="flex items-center mt-1">
+                    <div className="flex text-amber-400">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star
+                          key={star}
+                          className="w-4 h-4 fill-current"
+                        />
+                      ))}
                     </div>
+                    <span className="text-sm text-gray-500 ml-1">(24 reviews)</span>
                   </div>
                 </div>
               </div>
-              <div className="p-6">
-                <div className="space-y-4">
-                  <a
-                    href={`tel:${property.agent.phone.replace(/[^\d+]/g, '')}`}
-                    className="flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-800 font-medium py-3 px-4 rounded-lg transition-colors"
-                  >
-                    <Phone className="w-5 h-5 mr-2 text-emerald-600" />
-                    Call {property.agent.name.split(' ')[0]}
-                  </a>
-                  <a
-                    href={`mailto:${property.agent.email}`}
-                    className="flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
-                  >
-                    <Mail className="w-5 h-5 mr-2" />
-                    Email Agent
-                  </a>
+
+              {/* Contact Buttons */}
+              <div className="space-y-3">
+                <a
+                  href="tel:+1234567890"
+                  className="flex items-center justify-center w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  Call Sarah
+                </a>
+                <button className="w-full border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors">
+                  Message
+                </button>
+              </div>
+
+              {/* Contact Info */}
+              <div className="mt-6 space-y-3 text-sm">
+                <div className="flex items-center text-gray-600">
+                  <Mail className="w-4 h-4 mr-2 text-emerald-600" />
+                  <span>sarah.johnson@example.com</span>
                 </div>
-                <div className="mt-6 pt-6 border-t border-gray-100">
-                  <p className="text-sm text-gray-600 text-center">
-                    Response time: <span className="font-medium text-gray-900">Within 1 hour</span>
-                  </p>
+                <div className="flex items-center text-gray-600">
+                  <Phone className="w-4 h-4 mr-2 text-emerald-600" />
+                  <span>(555) 123-4567</span>
                 </div>
               </div>
             </div>
