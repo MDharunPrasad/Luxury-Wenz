@@ -40,7 +40,7 @@ const PropertyDetails: FC = () => {
     description: 'Stunning modern villa with panoramic views, featuring an open floor plan, high-end finishes, and resort-style amenities.',
     images: [
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
-      'https://images.unsplash.com/photo-1600566752225-207662756c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+      'https://images.unsplash.com/photo-1600607687929-597b7d5f7c1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
       'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
     ],
@@ -51,7 +51,7 @@ const PropertyDetails: FC = () => {
       email: 'sarah.johnson@luxurywenz.com',
       image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=634&q=80',
       rating: '5.0',
-      propertiesSold: 24
+      propertiesSold: 127
     }
   };
 
@@ -139,22 +139,36 @@ const PropertyDetails: FC = () => {
               </div>
 
               {/* Thumbnails */}
-              <div className="flex p-4 space-x-2 overflow-x-auto">
-                {property.images.map((img, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 ${
-                      index === currentImageIndex ? 'border-emerald' : 'border-transparent'
-                    }`}
-                  >
-                    <img
-                      src={img}
-                      alt={`${property.title} ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
+              <div className="p-4">
+                <div className="flex space-x-3 overflow-x-auto pb-2 -mx-4 px-4">
+                  {property.images.map((img, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`flex-shrink-0 w-24 h-20 rounded-lg overflow-hidden border-2 transition-all duration-200 transform hover:scale-105 ${
+                        index === currentImageIndex 
+                          ? 'border-emerald scale-105 shadow-md' 
+                          : 'border-gray-200 hover:border-emerald/50'
+                      }`}
+                    >
+                      <div className="relative w-full h-full">
+                        <img
+                          src={img}
+                          alt={`${property.title} ${index + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.src = 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80';
+                          }}
+                        />
+                        {index === currentImageIndex && (
+                          <div className="absolute inset-0 bg-emerald/20 mix-blend-overlay"></div>
+                        )}
+                      </div>
+                    </button>
                 ))}
+                </div>
               </div>
             </div>
 
@@ -198,7 +212,7 @@ const PropertyDetails: FC = () => {
               </div>
 
               <h2 className="text-xl font-semibold mb-4">Description</h2>
-              <p className="text-gray-600 mb-6">{property.description}</p>
+              <p className="text-gray-700 mb-6 leading-relaxed">{property.description}</p>
               <p className="text-gray-600">This stunning property features floor-to-ceiling windows, a gourmet kitchen with high-end appliances, and a spacious master suite with a luxurious bathroom. The outdoor space includes a swimming pool, landscaped gardens, and multiple entertainment areas perfect for hosting gatherings.</p>
             </div>
           </div>
@@ -270,38 +284,61 @@ const PropertyDetails: FC = () => {
             </div>
 
             {/* Agent Info */}
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <h3 className="text-xl font-semibold mb-4">Listed By</h3>
-              <div className="flex items-center space-x-4 mb-4">
-                <img
-                  src={property.agent.image}
-                  alt={property.agent.name}
-                  className="w-16 h-16 rounded-full object-cover border-2 border-emerald-100"
-                />
-                <div>
-                  <h4 className="font-semibold text-gray-900">{property.agent.name}</h4>
-                  <p className="text-sm text-gray-600">{property.agent.title}</p>
-                  <div className="flex items-center mt-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600 ml-1">{property.agent.rating} ({property.agent.propertiesSold} sold)</span>
+            <div className="bg-white rounded-xl shadow-md overflow-hidden">
+              <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-6 text-white">
+                <h3 className="text-xl font-semibold mb-4">Contact Agent</h3>
+                <div className="flex items-center space-x-4">
+                  <div className="relative w-20 h-20 rounded-full border-4 border-white/20 overflow-hidden flex-shrink-0">
+                    <img
+                      src={property.agent.image}
+                      alt={property.agent.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null;
+                        target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(property.agent.name)}&background=0D8ABC&color=fff&size=160`;
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg">{property.agent.name}</h4>
+                    <p className="text-emerald-100 text-sm">{property.agent.title}</p>
+                    <div className="flex items-center mt-1">
+                      <div className="flex">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star 
+                            key={star} 
+                            className={`w-4 h-4 ${star <= Math.floor(parseFloat(property.agent.rating)) ? 'text-yellow-300 fill-current' : 'text-white/30'}`} 
+                          />
+                        ))}
+                      </div>
+                      <span className="text-emerald-100 text-sm ml-1">({property.agent.propertiesSold} sold)</span>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <a
-                  href={`tel:${property.agent.phone}`}
-                  className="flex items-center text-gray-700 hover:text-emerald-600 transition-colors"
-                >
-                  <Phone className="w-4 h-4 mr-2" />
-                  {property.agent.phone}
-                </a>
-                <a
-                  href={`mailto:${property.agent.email}`}
-                  className="flex items-center text-gray-700 hover:text-emerald-600 transition-colors"
-                >
-                  <Mail className="w-4 h-4 mr-2" />
-                  {property.agent.email}
-                </a>
+              <div className="p-6">
+                <div className="space-y-4">
+                  <a
+                    href={`tel:${property.agent.phone.replace(/[^\d+]/g, '')}`}
+                    className="flex items-center justify-center bg-gray-50 hover:bg-gray-100 text-gray-800 font-medium py-3 px-4 rounded-lg transition-colors"
+                  >
+                    <Phone className="w-5 h-5 mr-2 text-emerald-600" />
+                    Call {property.agent.name.split(' ')[0]}
+                  </a>
+                  <a
+                    href={`mailto:${property.agent.email}`}
+                    className="flex items-center justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
+                  >
+                    <Mail className="w-5 h-5 mr-2" />
+                    Email Agent
+                  </a>
+                </div>
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <p className="text-sm text-gray-600 text-center">
+                    Response time: <span className="font-medium text-gray-900">Within 1 hour</span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
