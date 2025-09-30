@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { Home } from './pages/Home';
 import { Listings } from './pages/Listings';
-import { PropertyDetails } from './pages/PropertyDetails';
+import PropertyDetails from './pages/PropertyDetails';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
 import { Blog } from './pages/Blog';

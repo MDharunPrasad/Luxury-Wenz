@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Filter, MapPin, Home, DollarSign, Star, Heart } from 'lucide-react';
-import { properties as defaultProperties, Property } from '../data/properties';
+import { Property } from '../data/properties';
+import { propertiesUpdated } from '../data/properties-updated';
 
 const STORAGE_KEY = 'wenz_properties';
 
@@ -20,7 +21,8 @@ export const Listings: React.FC = () => {
       return [];
     }
   })();
-  const [properties] = useState<Property[]>([...stored, ...defaultProperties]);
+  // Use the updated properties with local images
+  const [properties] = useState<Property[]>(propertiesUpdated);
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -122,62 +124,123 @@ export const Listings: React.FC = () => {
             <span className="text-sm text-gray-600">Sort by: Featured</span>
           </div>
         </div>
-
         {/* Properties Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {filteredProperties.map((property) => (
             <div key={property.id} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
               {/* Property Image */}
-              <div className="relative h-48 sm:h-64 overflow-hidden">
+              <div className="relative h-48 md:h-64 overflow-hidden rounded-t-xl bg-gray-100">
                 <img
-                  src={property.images[0]}
+                  src={property.images?.[0] || '/images/placeholder-property.jpg'}
                   alt={property.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = '/images/placeholder-property.jpg';
+                  }}
                 />
-                {property.featured && (
-                  <div className="absolute top-4 left-4 bg-gradient-to-r from-emerald to-champagne text-white px-3 py-1 rounded-full text-sm font-medium">
-                    Featured
-                  </div>
-                )}
-                <button className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors duration-300">
-                  <Heart className="w-5 h-5 text-gray-600 hover:text-red-500" />
-                </button>
+                <div className="absolute top-0 left-0 w-full h-full flex items-start justify-between p-4">
+                  {property.featured && (
+                    <div className="bg-gradient-to-r from-emerald to-champagne text-white px-3 py-1 rounded-full text-sm font-medium">
+                      Featured
+                    </div>
+                  )}
+                  <button className="bg-white/80 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors">
+                    <Heart className="w-5 h-5 text-gray-600 hover:text-red-500" />
+                  </button>
+                </div>
               </div>
 
               {/* Property Details */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-emerald font-semibold text-sm">{property.type}</span>
-                  <div className="flex items-center space-x-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600">{property.rating}</span>
+              <div className="p-5 sm:p-6">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-emerald font-semibold text-xs uppercase tracking-wider">
+                    {property.type}
+                  </span>
+                  <div className="flex items-center space-x-1 bg-gray-50 px-2 py-1 rounded-md">
+                    <Star className="w-3.5 h-3.5 text-yellow-400 fill-current" />
+                    <span className="text-xs font-medium text-gray-600">
+                      {property.rating}
+                    </span>
                   </div>
                 </div>
 
-                <h3 className="text-xl font-playfair font-bold text-jet mb-2 group-hover:text-emerald transition-colors duration-300">
+                <h3 className="text-lg sm:text-xl font-playfair font-bold text-jet mb-2 group-hover:text-emerald transition-colors duration-300">
                   {property.title}
                 </h3>
 
-                <div className="flex items-center text-gray-600 mb-4">
-                  <MapPin className="w-4 h-4 mr-1" />
-                  <span className="text-sm">{property.location}</span>
+                <div className="flex items-start text-gray-600 mb-3">
+                  <MapPin className="w-4 h-4 mt-0.5 mr-1.5 flex-shrink-0 text-emerald/80" />
+                  <span className="text-sm text-gray-600 leading-tight">{property.location}</span>
+                </div>
+                
+                {/* Description */}
+                {property.description && (
+                  <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                    {property.description}
+                  </p>
+                )}
+
+                <div className="grid grid-cols-3 gap-2 text-center text-sm text-gray-600 mb-5 bg-gray-50 rounded-lg p-2">
+                  <div className="flex flex-col items-center">
+                    <span className="font-medium text-jet">{property.bedrooms}</span>
+                    <span className="text-xs text-gray-500">Beds</span>
+                  </div>
+                  <div className="flex flex-col items-center border-x border-gray-200">
+                    <span className="font-medium text-jet">{property.bathrooms}</span>
+                    <span className="text-xs text-gray-500">Baths</span>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <span className="font-medium text-jet">{property.area}</span>
+                    <span className="text-xs text-gray-500">Sq Ft</span>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-                  <span>{property.bedrooms} beds</span>
-                  <span>{property.bathrooms} baths</span>
-                  <span>{property.area}</span>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-2xl font-bold text-jet">{property.price}</span>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div>
+                    <span className="block text-xs text-gray-500">Price</span>
+                    <span className="text-xl font-bold text-jet">
+                      {property.price.includes('$') ? property.price : `$${parseInt(property.price).toLocaleString()}`}
+                    </span>
+                  </div>
                   <Link
                     to={`/property/${property.id}`}
-                    className="bg-gradient-to-r from-emerald to-champagne text-white px-6 py-2 rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300"
+                    className="w-full sm:w-auto text-center bg-gradient-to-r from-emerald to-champagne text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-emerald/20 hover:scale-[1.02] active:scale-95 transition-all duration-300 text-sm font-medium"
                   >
                     View Details
                   </Link>
                 </div>
+                
+                {/* Agent Info */}
+                {property.agent && (
+                  <div className="mt-4 pt-4 border-t border-gray-100 flex items-center">
+                    <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden mr-3 flex-shrink-0">
+                      {property.agent.image ? (
+                        <img 
+                          src={property.agent.image} 
+                          alt={property.agent.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null;
+                            target.src = '/images/placeholder-avatar.jpg';
+                          }}
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-emerald-100 flex items-center justify-center">
+                          <span className="text-emerald-700 font-medium text-sm">
+                            {property.agent.name.split(' ').map(n => n[0]).join('')}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="truncate">
+                      <p className="text-sm font-medium text-gray-800 truncate">{property.agent.name}</p>
+                      <p className="text-xs text-gray-500 truncate">{property.agent.title}</p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ))}
