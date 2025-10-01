@@ -250,7 +250,7 @@ const PropertyDetails = () => {
                 </div>
               </div>
 
-              {/* Contact Buttons */}
+              {/* Contact  */}
               <div className="space-y-3">
                 <a
                   href="tel:+1234567890"
