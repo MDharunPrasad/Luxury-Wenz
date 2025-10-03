@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import AdminLayout from '../../components/admin/AdminLayout';
+import AdminLayout from '../../components/admin/AdminLayoutNew';
 import PropertiesNew from './PropertiesNew';
 import PropertyFormNew from './PropertyFormNew';
 

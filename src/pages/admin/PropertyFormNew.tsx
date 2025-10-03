@@ -14,7 +14,8 @@ import {
   Calendar,
   Tag,
   DollarSign,
-  Camera
+  Camera,
+  Sparkles
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -51,23 +52,103 @@ const PropertyFormNew = () => {
     parking: 0,
     featured: false,
     selectedAmenities: [] as string[],
+    thumbnail: '',
     images: [] as string[],
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [imageUpload, setImageUpload] = useState('');
+  const [thumbnailPreview, setThumbnailPreview] = useState('');
+  const [imagesPreviews, setImagesPreviews] = useState<string[]>([]);
 
-  // Simulated form submission
+  // Handle thumbnail upload
+  const handleThumbnailUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        setThumbnailPreview(result);
+        setFormData(prev => ({
+          ...prev,
+          thumbnail: result
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Handle multiple images upload
+  const handleImagesUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length > 4) {
+      alert('You can only upload up to 4 additional images');
+      return;
+    }
+
+    const newPreviews: string[] = [];
+    const newImages: string[] = [];
+
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        newPreviews.push(result);
+        newImages.push(result);
+        
+        if (newPreviews.length === files.length) {
+          setImagesPreviews(newPreviews);
+          setFormData(prev => ({
+            ...prev,
+            images: newImages
+          }));
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
+  // Form submission with localStorage
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log('Property saved:', formData);
-    setIsSubmitting(false);
-    navigate('/admin/properties');
+    try {
+      // Get existing properties from localStorage
+      const existingProperties = JSON.parse(localStorage.getItem('admin_properties') || '[]');
+      
+      // Create property object
+      const propertyData = {
+        id: isEditMode ? id : Date.now().toString(),
+        ...formData,
+        price: parseInt(formData.price) || 0,
+        createdAt: new Date().toISOString(),
+      };
+
+      let updatedProperties;
+      if (isEditMode) {
+        // Update existing property
+        updatedProperties = existingProperties.map((p: any) => 
+          p.id === id ? propertyData : p
+        );
+      } else {
+        // Add new property
+        updatedProperties = [...existingProperties, propertyData];
+      }
+
+      // Save to localStorage
+      localStorage.setItem('admin_properties', JSON.stringify(updatedProperties));
+      
+      console.log('Property saved:', propertyData);
+      
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setIsSubmitting(false);
+      navigate('/admin/properties');
+    } catch (error) {
+      console.error('Error saving property:', error);
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -101,22 +182,7 @@ const PropertyFormNew = () => {
     }));
   };
 
-  const addImage = () => {
-    if (imageUpload.trim()) {
-      setFormData(prev => ({
-        ...prev,
-        images: [...prev.images, imageUpload.trim()]
-      }));
-      setImageUpload('');
-    }
-  };
 
-  const removeImage = (index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      images: prev.images.filter((_, i) => i !== index)
-    }));
-  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -130,7 +196,7 @@ const PropertyFormNew = () => {
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 font-playfair">
+            <h1 className="text-3xl font-bold text-jet font-playfair">
               {isEditMode ? 'Edit Property' : 'Add New Property'}
             </h1>
             <p className="text-gray-600">Create a stunning property listing</p>
@@ -146,10 +212,10 @@ const PropertyFormNew = () => {
           className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
         >
           <div className="flex items-center mb-6">
-            <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-amber-600 rounded-xl flex items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-emerald to-emerald/90 rounded-xl flex items-center justify-center mr-3">
               <Home className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">Basic Information</h2>
+            <h2 className="text-xl font-bold text-jet">Basic Information</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -163,7 +229,7 @@ const PropertyFormNew = () => {
                 value={formData.title}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
                 placeholder="e.g., Luxury Penthouse with City Views"
               />
             </div>
@@ -177,7 +243,7 @@ const PropertyFormNew = () => {
                 value={formData.propertyType}
                 onChange={handleInputChange}
                 required
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
               >
                 <option value="">Select Type</option>
                 {propertyTypes.map(type => (
@@ -194,7 +260,7 @@ const PropertyFormNew = () => {
                 name="status"
                 value={formData.status}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
               >
                 {propertyStatus.map(status => (
                   <option key={status} value={status}>{status}</option>
@@ -214,7 +280,7 @@ const PropertyFormNew = () => {
                   value={formData.price}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
                   placeholder="2500000"
                 />
               </div>
@@ -232,7 +298,7 @@ const PropertyFormNew = () => {
                   value={formData.location}
                   onChange={handleInputChange}
                   required
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
                   placeholder="Manhattan, NY"
                 />
               </div>
@@ -247,7 +313,7 @@ const PropertyFormNew = () => {
                 value={formData.description}
                 onChange={handleInputChange}
                 rows={4}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 resize-none"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200 resize-none"
                 placeholder="Describe the property's unique features and amenities..."
               />
             </div>
@@ -262,10 +328,10 @@ const PropertyFormNew = () => {
           className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
         >
           <div className="flex items-center mb-6">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-champagne to-champagne/90 rounded-xl flex items-center justify-center mr-3">
               <Ruler className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">Property Details</h2>
+            <h2 className="text-xl font-bold text-jet">Property Details</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -280,7 +346,7 @@ const PropertyFormNew = () => {
                 value={formData.bedrooms}
                 onChange={handleInputChange}
                 min="0"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
               />
             </div>
 
@@ -296,7 +362,7 @@ const PropertyFormNew = () => {
                 onChange={handleInputChange}
                 min="0"
                 step="0.5"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
               />
             </div>
 
@@ -310,7 +376,7 @@ const PropertyFormNew = () => {
                 name="area"
                 value={formData.area}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
                 placeholder="2,500"
               />
             </div>
@@ -326,7 +392,7 @@ const PropertyFormNew = () => {
                 value={formData.parking}
                 onChange={handleInputChange}
                 min="0"
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
               />
             </div>
 
@@ -342,7 +408,7 @@ const PropertyFormNew = () => {
                 onChange={handleInputChange}
                 min="1900"
                 max={new Date().getFullYear()}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald/50 focus:border-emerald transition-all duration-200"
               />
             </div>
 
@@ -353,7 +419,7 @@ const PropertyFormNew = () => {
                   name="featured"
                   checked={formData.featured}
                   onChange={handleInputChange}
-                  className="w-5 h-5 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 focus:ring-2"
+                  className="w-5 h-5 text-emerald bg-gray-100 border-gray-300 rounded focus:ring-emerald/50 focus:ring-2"
                 />
                 <span className="text-sm font-medium text-gray-700">Featured Property</span>
               </label>
@@ -369,51 +435,113 @@ const PropertyFormNew = () => {
           className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
         >
           <div className="flex items-center mb-6">
-            <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-emerald/70 to-emerald rounded-xl flex items-center justify-center mr-3">
               <Camera className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900">Property Images</h2>
+            <h2 className="text-xl font-bold text-jet">Property Images</h2>
           </div>
 
-          <div className="space-y-4">
-            <div className="flex gap-3">
-              <input
-                type="url"
-                value={imageUpload}
-                onChange={(e) => setImageUpload(e.target.value)}
-                placeholder="Enter image URL"
-                className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200"
-              />
-              <button
-                type="button"
-                onClick={addImage}
-                className="px-6 py-3 bg-amber-600 text-white rounded-xl hover:bg-amber-700 transition-colors flex items-center gap-2"
-              >
-                <Plus className="w-4 h-4" />
-                Add
-              </button>
-            </div>
-
-            {formData.images.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {formData.images.map((image, index) => (
-                  <div key={index} className="relative group">
+          <div className="space-y-6">
+            {/* Thumbnail Upload */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Main Thumbnail Image *
+              </label>
+              <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
+                {thumbnailPreview ? (
+                  <div className="relative">
                     <img
-                      src={image}
-                      alt={`Property image ${index + 1}`}
-                      className="w-full h-48 object-cover rounded-xl"
+                      src={thumbnailPreview}
+                      alt="Thumbnail preview"
+                      className="w-full h-48 object-cover rounded-lg mb-4"
                     />
                     <button
                       type="button"
-                      onClick={() => removeImage(index)}
-                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => {
+                        setThumbnailPreview('');
+                        setFormData(prev => ({ ...prev, thumbnail: '' }));
+                      }}
+                      className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
                     >
                       <X className="w-4 h-4" />
                     </button>
                   </div>
-                ))}
+                ) : (
+                  <div>
+                    <Camera className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600 mb-4">Upload main property image</p>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleThumbnailUpload}
+                  className="hidden"
+                  id="thumbnail-upload"
+                />
+                <label
+                  htmlFor="thumbnail-upload"
+                  className="inline-flex items-center px-4 py-2 bg-emerald text-white rounded-lg hover:bg-emerald/90 cursor-pointer transition-colors"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  {thumbnailPreview ? 'Change Image' : 'Select Image'}
+                </label>
               </div>
-            )}
+            </div>
+
+            {/* Additional Images Upload */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                Additional Images (up to 4)
+              </label>
+              <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
+                {imagesPreviews.length > 0 ? (
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    {imagesPreviews.map((preview, index) => (
+                      <div key={index} className="relative">
+                        <img
+                          src={preview}
+                          alt={`Additional image ${index + 1}`}
+                          className="w-full h-32 object-cover rounded-lg"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newPreviews = imagesPreviews.filter((_, i) => i !== index);
+                            const newImages = formData.images.filter((_, i) => i !== index);
+                            setImagesPreviews(newPreviews);
+                            setFormData(prev => ({ ...prev, images: newImages }));
+                          }}
+                          className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div>
+                    <Camera className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600 mb-4">Upload additional property images</p>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImagesUpload}
+                  className="hidden"
+                  id="images-upload"
+                />
+                <label
+                  htmlFor="images-upload"
+                  className="inline-flex items-center px-4 py-2 bg-emerald text-white rounded-lg hover:bg-emerald/90 cursor-pointer transition-colors"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  {imagesPreviews.length > 0 ? 'Add More Images' : 'Select Images'}
+                </label>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -438,7 +566,7 @@ const PropertyFormNew = () => {
                   type="checkbox"
                   checked={formData.selectedAmenities.includes(amenity)}
                   onChange={() => handleAmenityToggle(amenity)}
-                  className="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 focus:ring-2"
+                  className="w-4 h-4 text-emerald bg-gray-100 border-gray-300 rounded focus:ring-emerald/50 focus:ring-2"
                 />
                 <span className="text-sm text-gray-700">{amenity}</span>
               </label>
@@ -458,7 +586,7 @@ const PropertyFormNew = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-8 py-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-amber-500/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-8 py-3 bg-gradient-to-r from-emerald to-emerald/90 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-emerald/25 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             {isSubmitting ? (
               <>

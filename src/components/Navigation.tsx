@@ -20,8 +20,16 @@ export const Navigation: React.FC = () => {
     { path: '/listings', label: 'Listings', icon: Search },
     { path: '/about', label: 'About', icon: Info },
     { path: '/contact', label: 'Contact', icon: MessageCircle },
-    { path: '/admin/login', label: 'Admin', icon: User },
   ];
+
+  const handleAdminClick = () => {
+    const isAuthenticated = localStorage.getItem('admin_token') !== null;
+    if (isAuthenticated) {
+      window.location.href = '/admin';
+    } else {
+      window.location.href = '/admin/login';
+    }
+  };
 
   return (
     <>
@@ -66,13 +74,13 @@ export const Navigation: React.FC = () => {
               })}
               
               {/* Admin Button */}
-              <Link
-                to="/admin/login"
+              <button
+                onClick={handleAdminClick}
                 className="flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
                 <User className="w-4 h-4" />
                 <span>Admin</span>
-              </Link>
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -112,6 +120,18 @@ export const Navigation: React.FC = () => {
                     </Link>
                   );
                 })}
+                
+                {/* Mobile Admin Button */}
+                <button
+                  onClick={() => {
+                    handleAdminClick();
+                    setIsOpen(false);
+                  }}
+                  className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-gradient-to-r from-emerald to-champagne text-white font-medium hover:shadow-lg transition-all duration-300 w-full"
+                >
+                  <User className="w-5 h-5" />
+                  <span>Admin</span>
+                </button>
               </div>
             </div>
           </div>
