@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bed, Bath, Square, MapPin, Heart, Eye, ArrowRight } from 'lucide-react';
+import { Bed, Bath, Square, MapPin, ArrowRight } from 'lucide-react';
 
 const featuredProperties = [
   {
@@ -91,74 +91,61 @@ export const FeaturedProperties: React.FC = () => {
           {featuredProperties.map((property, index) => (
             <div
               key={property.id}
-              className="group cursor-pointer animate-fade-in-up"
+              className="group cursor-pointer animate-fade-in-up h-full flex flex-col"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 transform-gpu">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 transform-gpu flex flex-col h-full">
                 {/* Property Image */}
-                <div className="relative overflow-hidden">
+                <div className="relative overflow-hidden aspect-[4/3]">
                   <img
                     src={property.image}
                     alt={property.title}
-                    className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   
                   {/* Image Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-jet/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
-                  {/* Property Type Badge */}
-                  <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-emerald font-medium text-sm">
-                    {property.type}
-                  </div>
-                  
-                  {/* Action Buttons */}
-                  <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                    <button className="p-2 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-colors duration-300">
-                      <Heart className="w-4 h-4 text-emerald" />
-                    </button>
-                    <button className="p-2 rounded-full bg-white/90 backdrop-blur-sm hover:bg-white transition-colors duration-300">
-                      <Eye className="w-4 h-4 text-emerald" />
-                    </button>
-                  </div>
-
                   {/* Price Tag */}
-                  <div className="absolute bottom-4 left-4 px-4 py-2 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-bold">
+                  <div className="absolute bottom-4 left-4 px-4 py-2 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-bold text-sm md:text-base">
                     {property.price}
                   </div>
                 </div>
-
+                
                 {/* Property Details */}
-                <div className="p-6">
-                  <div className="flex items-center text-emerald/80 text-sm mb-2">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    {property.location}
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex items-center text-emerald/80 text-sm mb-3">
+                    <MapPin className="w-4 h-4 mr-1 flex-shrink-0" />
+                    <span className="truncate">{property.location}</span>
                   </div>
                   
-                  <h3 className="font-playfair text-2xl font-bold text-jet mb-4 group-hover:text-emerald transition-colors duration-300">
+                  <h3 className="font-playfair text-xl font-bold text-jet mb-4 group-hover:text-emerald transition-colors duration-300 line-clamp-2 h-14">
                     {property.title}
                   </h3>
 
                   {/* Property Stats */}
-                  <div className="flex items-center justify-between text-jet/60 mb-4">
-                    <div className="flex items-center space-x-1">
-                      <Bed className="w-4 h-4" />
-                      <span className="text-sm font-medium">{property.beds}</span>
+                  <div className="flex items-center justify-between text-jet/60 text-sm mb-6">
+                    <div className="flex flex-col items-center space-y-1">
+                      <Bed className="w-5 h-5" />
+                      <span className="font-medium">{property.beds} Beds</span>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Bath className="w-4 h-4" />
-                      <span className="text-sm font-medium">{property.baths}</span>
+                    <div className="flex flex-col items-center space-y-1">
+                      <Bath className="w-5 h-5" />
+                      <span className="font-medium">{property.baths} Baths</span>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      <Square className="w-4 h-4" />
-                      <span className="text-sm font-medium">{property.sqft} sq ft</span>
+                    <div className="flex flex-col items-center space-y-1">
+                      <Square className="w-5 h-5" />
+                      <span className="font-medium">{property.sqft} sqft</span>
                     </div>
                   </div>
 
                   {/* View Details Button */}
-                  <button className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl border-2 border-emerald text-emerald font-medium hover:bg-emerald hover:text-white transition-all duration-300 group/btn">
-                    <span>View Details</span>
-                    <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                  </button>
+                  <div className="mt-auto">
+                    <button className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl border-2 border-emerald text-emerald font-medium hover:bg-emerald hover:text-white transition-all duration-300 group/btn">
+                      <span>View Details</span>
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

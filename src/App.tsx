@@ -4,7 +4,7 @@ import { Home } from './pages/Home';
 import { Listings } from './pages/Listings';
 import PropertyDetails from './pages/PropertyDetails';
 import { About } from './pages/About';
-import { Contact } from './pages/Contact';
+import Contact from './pages/Contact';
 import { Blog } from './pages/Blog';
 import AdminLogin from './pages/AdminLogin';
 import AdminRoutes from './pages/admin';

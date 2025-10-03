@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
               <p className="text-platinum/80 text-sm leading-relaxed mb-6">
                 Your gateway to the world's most prestigious properties. We deliver exceptional luxury real estate experiences with unmatched expertise and personalized service.
               </p>
-              
+
               {/* Social Media */}
               <div className="flex space-x-4">
                 <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-emerald hover:scale-110 transition-all duration-300">

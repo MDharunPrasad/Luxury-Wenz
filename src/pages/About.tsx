@@ -44,7 +44,7 @@ const features = [
     title: 'White-Glove Service',
     description: 'Experience our signature concierge service that attends to every detail, ensuring a seamless and exceptional property journey.',
     icon: Star,
-    image: 'https://images.unsplash.com/photo-1582719471384-894e6eef9c1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80',
+    image: '/images/properties/1-2.jpg',
     color: 'from-amber-50 to-amber-100',
     buttonText: 'Our Services',
     link: '/services'
@@ -344,6 +344,11 @@ export const About: React.FC = () => {
                       src={feature.image}
                       alt={feature.title}
                       className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null;
+                        target.src = '/images/properties/1-1.jpg'; // Fallback image
+                      }}
                     />
                     <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
                       <div className={`w-14 h-14 rounded-xl ${feature.color} flex items-center justify-center shadow-lg mb-4 transform group-hover:rotate-6 transition-transform duration-300`}>
@@ -509,13 +514,15 @@ export const About: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-28 overflow-hidden bg-gradient-to-br from-jet to-jet/90">
+      <section className="relative py-28 overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-jet">
         {/* Decorative elements */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds.png')]" />
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 opacity-5" style={{
+            backgroundImage: 'url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzR2LTRoLTJ2NGgtNHYyaDR2NGgydi00aDR2LTJoLTR6bTAtMzBWMGgtMnY0aC00djJoNHY0aDJWNmg0VjRoLTR6bS0yNiA0SDZ2LTJoNHYtMkg0Yy0xLjEgMC0yIC45LTIgMnY0aDJ6bTAgMTZoNHYtMkg0djJoMnYtMnptMC04aDR2LTJINFYxMHptLTIgNGg0di0ySDR2MnoiLz48L2c+PC9nPjwvc3ZnPg==")'
+          }}></div>
+          <div className="absolute -top-20 -right-20 w-96 h-96 bg-gradient-to-br from-amber-500/10 to-transparent rounded-full filter blur-3xl"></div>
+          <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-gradient-to-tr from-emerald-500/10 to-transparent rounded-full filter blur-3xl"></div>
         </div>
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-emerald/20 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-1/3 h-full bg-gradient-to-r from-champagne/20 to-transparent"></div>
         
         <div className="relative max-w-6xl mx-auto px-6 z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -526,22 +533,25 @@ export const About: React.FC = () => {
               transition={{ duration: 0.8 }}
               className="text-center lg:text-left"
             >
-              <span className="inline-block px-4 py-2 text-sm font-medium text-emerald-200 bg-emerald-900/30 rounded-full border border-emerald-800/50 mb-6">
+              <span className="inline-block px-5 py-2.5 text-sm font-medium text-amber-100 bg-amber-900/30 rounded-full border border-amber-800/50 mb-6 backdrop-blur-sm">
                 Begin Your Journey
               </span>
               <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
-                Experience the <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-champagne">Luxury</span> Difference
+                Experience the <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-champagne">Luxury</span> Difference
               </h2>
-              <p className="text-xl text-white/90 mb-8 max-w-xl mx-auto lg:mx-0">
+              <p className="text-xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 Let us transform your real estate aspirations into reality with our unparalleled expertise and personalized service.
               </p>
               
               <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                 <motion.a 
-                  whileHover={{ scale: 1.03 }}
+                  whileHover={{ 
+                    scale: 1.03, 
+                    boxShadow: '0 10px 25px -5px rgba(245, 158, 11, 0.3)' 
+                  }}
                   whileTap={{ scale: 0.98 }}
                   href="/contact" 
-                  className="px-8 py-4 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-600 text-white font-semibold hover:shadow-xl hover:shadow-emerald-500/20 transition-all duration-300 flex items-center group"
+                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold hover:shadow-xl transition-all duration-300 flex items-center group"
                 >
                   Schedule a Consultation
                   <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -549,10 +559,14 @@ export const About: React.FC = () => {
                   </svg>
                 </motion.a>
                 <motion.a 
-                  whileHover={{ scale: 1.03 }}
+                  whileHover={{ 
+                    scale: 1.03,
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.4)'
+                  }}
                   whileTap={{ scale: 0.98 }}
                   href="/listings" 
-                  className="px-8 py-4 rounded-full border-2 border-white/20 bg-white/5 text-white font-semibold hover:bg-white/10 hover:border-white/40 backdrop-blur-sm transition-all duration-300 flex items-center group"
+                  className="px-8 py-4 rounded-xl border-2 border-white/20 bg-white/5 text-white font-semibold hover:border-white/40 backdrop-blur-sm transition-all duration-300 flex items-center group"
                 >
                   Explore Our Portfolio
                   <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -561,11 +575,11 @@ export const About: React.FC = () => {
                 </motion.a>
               </div>
               
-              <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm text-white/70">
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 text-sm">
                 <div className="flex items-center">
                   <div className="flex -space-x-2 mr-3">
                     {[1, 2, 3].map((i) => (
-                      <div key={i} className="w-8 h-8 rounded-full border-2 border-white/20 overflow-hidden">
+                      <div key={i} className="w-9 h-9 rounded-full border-2 border-white/20 overflow-hidden">
                         <img 
                           src={`https://randomuser.me/api/portraits/${i % 2 === 0 ? 'women' : 'men'}/${30 + i}.jpg`} 
                           alt="Client"
@@ -574,7 +588,15 @@ export const About: React.FC = () => {
                       </div>
                     ))}
                   </div>
-                  <span>Trusted by 5,000+ clients</span>
+                  <div className="text-left">
+                    <p className="text-white font-medium">Trusted by 5,000+ clients</p>
+                    <div className="flex items-center mt-1">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} className="w-4 h-4 text-amber-400 fill-current" />
+                      ))}
+                      <span className="ml-2 text-amber-400">5.0</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>

@@ -2,16 +2,11 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   ArrowLeft,
-  Heart,
-  Share2,
   MapPin,
   Bed,
   Bath,
   Ruler,
   Car,
-  Phone,
-  Mail,
-  Star,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
@@ -105,15 +100,6 @@ const PropertyDetails = () => {
                   {currentImageIndex + 1} / {property.images.length}
                 </div>
 
-                {/* Action Buttons */}
-                <div className="absolute top-4 right-4 flex space-x-2">
-                  <button className="p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors duration-300">
-                    <Heart className="w-5 h-5 text-gray-800" />
-                  </button>
-                  <button className="p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors duration-300">
-                    <Share2 className="w-5 h-5 text-gray-800" />
-                  </button>
-                </div>
               </div>
 
               {/* Thumbnails */}
@@ -197,84 +183,78 @@ const PropertyDetails = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6">
             {/* Price Box */}
-            <div className="bg-white rounded-xl shadow-md p-6">
-              <div className="text-4xl font-bold text-gray-900 mb-2">{property.formattedPrice}</div>
-              <div className="text-emerald-600 font-medium text-lg mb-4">For Sale</div>
+            <div className="bg-gray-900 rounded-2xl shadow-xl p-6 border border-gray-800">
+              <div className="text-4xl font-bold text-white mb-1">{property.formattedPrice}</div>
+              <div className="text-emerald-400 font-medium text-lg mb-6">For Sale</div>
 
               <div className="flex items-center space-x-4 mb-6">
-                <div className="flex-1 border-t border-gray-200"></div>
-                <span className="text-sm text-gray-500">or</span>
-                <div className="flex-1 border-t border-gray-200"></div>
+                <div className="flex-1 border-t border-gray-700"></div>
+                <span className="text-sm text-gray-400">or</span>
+                <div className="flex-1 border-t border-gray-700"></div>
               </div>
 
               <div className="text-center">
-                <div className="text-sm text-gray-500 mb-3">Est. Mortgage $9,000/mo</div>
-                <button className="text-sm text-emerald-600 hover:underline">
+                <div className="text-sm text-gray-300 mb-4">Est. Mortgage $9,000/mo</div>
+                <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200">
                   Get Pre-Approved
                 </button>
               </div>
             </div>
 
-            {/* Contact Agent */}
+            {/* Enquiry Form */}
             <div className="bg-white rounded-xl shadow-md p-6">
-              <h3 className="text-xl font-semibold mb-4">Contact Agent</h3>
-
-              {/* Agent Info */}
-              <div className="flex items-center mb-6">
-                <div className="relative w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
-                  <img
-                    src="/agent-sarah.jpg"
-                    alt="Sarah Johnson"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null;
-                      target.src = 'https://randomuser.me/api/portraits/women/44.jpg';
-                    }}
-                    className="w-full h-full object-cover"
+              <h3 className="text-xl font-semibold mb-6 text-gray-900">Send Enquiry</h3>
+              <form className="space-y-4">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                    placeholder="Your full name"
+                    required
                   />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg">Sarah Johnson</h4>
-                  <p className="text-gray-600 text-sm">Real Estate Agent</p>
-                  <div className="flex items-center mt-1">
-                    <div className="flex text-amber-400">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star
-                          key={star}
-                          className="w-4 h-4 fill-current"
-                        />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-500 ml-1">(24 reviews)</span>
-                  </div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                    placeholder="your.email@example.com"
+                    required
+                  />
                 </div>
-              </div>
-
-              {/* Contact  */}
-              <div className="space-y-3">
-                <a
-                  href="tel:+1234567890"
-                  className="flex items-center justify-center w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-4 rounded-lg transition-colors"
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">Phone (Optional)</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors mb-2"
+                    placeholder="+1 (___) ___-____"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Your Message</label>
+                  <textarea
+                    id="message"
+                    rows={4}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
+                    placeholder={`I'm interested in ${property.title} at ${property.location}...`}
+                    defaultValue={`I'm interested in ${property.title} at ${property.location}.`}
+                    required
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  className="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 mt-4 shadow-md"
                 >
-                  <Phone className="w-5 h-5 mr-2" />
-                  Call Sarah
-                </a>
-                <button className="w-full border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors">
-                  Message
+                  <span>Send Message</span>
                 </button>
-              </div>
-
-              {/* Contact Info */}
-              <div className="mt-6 space-y-3 text-sm">
-                <div className="flex items-center text-gray-600">
-                  <Mail className="w-4 h-4 mr-2 text-emerald-600" />
-                  <span>sarah.johnson@example.com</span>
-                </div>
-                <div className="flex items-center text-gray-600">
-                  <Phone className="w-4 h-4 mr-2 text-emerald-600" />
-                  <span>(555) 123-4567</span>
-                </div>
-              </div>
+                <p className="text-xs text-gray-500 mt-2 text-center">
+                  We'll get back to you within 24 hours
+                </p>
+              </form>
             </div>
           </div>
         </div>

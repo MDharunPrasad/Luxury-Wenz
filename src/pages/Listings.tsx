@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Filter, MapPin, Home, DollarSign, Star, Heart } from 'lucide-react';
+import { Search, Filter, MapPin, Home, DollarSign, Star } from 'lucide-react';
 import { Property } from '../data/properties';
 import { propertiesUpdated } from '../data/properties-updated';
-
-const STORAGE_KEY = 'wenz_properties';
 
 export const Listings: React.FC = () => {
   const [filters, setFilters] = useState({
@@ -13,16 +11,16 @@ export const Listings: React.FC = () => {
     priceRange: '',
     search: ''
   });
-  const stored: Property[] = (() => {
-    try {
-      const json = localStorage.getItem(STORAGE_KEY);
-      return json ? JSON.parse(json) : [];
-    } catch {
-      return [];
-    }
-  })();
+  const [visibleProperties, setVisibleProperties] = useState(6);
+  const propertiesPerLoad = 6;
+  
   // Use the updated properties with local images
   const [properties] = useState<Property[]>(propertiesUpdated);
+  
+  // Function to load more properties
+  const loadMoreProperties = () => {
+    setVisibleProperties(prev => prev + propertiesPerLoad);
+  };
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -126,7 +124,7 @@ export const Listings: React.FC = () => {
         </div>
         {/* Properties Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {filteredProperties.map((property) => (
+          {filteredProperties.slice(0, visibleProperties).map((property) => (
             <div key={property.id} className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden">
               {/* Property Image */}
               <div className="relative h-48 md:h-64 overflow-hidden rounded-t-xl bg-gray-100">
@@ -140,16 +138,11 @@ export const Listings: React.FC = () => {
                     target.src = '/images/placeholder-property.jpg';
                   }}
                 />
-                <div className="absolute top-0 left-0 w-full h-full flex items-start justify-between p-4">
-                  {property.featured && (
-                    <div className="bg-gradient-to-r from-emerald to-champagne text-white px-3 py-1 rounded-full text-sm font-medium">
-                      Featured
-                    </div>
-                  )}
-                  <button className="bg-white/80 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors">
-                    <Heart className="w-5 h-5 text-gray-600 hover:text-red-500" />
-                  </button>
-                </div>
+                {property.featured && (
+                  <div className="absolute top-4 left-4 bg-gradient-to-r from-emerald to-champagne text-white px-3 py-1 rounded-full text-sm font-medium">
+                    Featured
+                  </div>
+                )}
               </div>
 
               {/* Property Details */}
@@ -247,11 +240,16 @@ export const Listings: React.FC = () => {
         </div>
 
         {/* Load More */}
-        <div className="text-center mt-12">
-          <button className="bg-white/80 backdrop-blur-md text-jet font-semibold px-8 py-3 rounded-xl hover:bg-white hover:shadow-lg transition-all duration-300 border border-white/20">
-            Load More Properties
-          </button>
-        </div>
+        {visibleProperties < filteredProperties.length && (
+          <div className="text-center mt-12">
+            <button 
+              onClick={loadMoreProperties}
+              className="bg-white/80 backdrop-blur-md text-jet font-semibold px-8 py-3 rounded-xl hover:bg-white hover:shadow-lg transition-all duration-300 border border-white/20 hover:border-emerald/50 hover:text-emerald"
+            >
+              Load More Properties
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

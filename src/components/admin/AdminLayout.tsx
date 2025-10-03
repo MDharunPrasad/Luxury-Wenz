@@ -1,7 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { 
-  LayoutDashboard, 
   Home as HomeIcon,
   LogOut, 
   Menu, 
@@ -15,7 +14,6 @@ interface AdminLayoutProps {
 }
 
 const navItems = [
-  { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
   { name: 'Properties', path: '/admin/properties', icon: Package },
   { name: 'Add New Property', path: '/admin/properties/new', icon: PlusCircle },
 ];

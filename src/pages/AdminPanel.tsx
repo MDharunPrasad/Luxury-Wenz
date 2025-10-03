@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Building, Plus, Trash2, Save, LogOut, Image } from 'lucide-react';
+import { Building, Plus, Trash2, LogOut, Image } from 'lucide-react';
 import { Property } from '../data/properties';
 
 const STORAGE_KEY = 'wenz_properties';
