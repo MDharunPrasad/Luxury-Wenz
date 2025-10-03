@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Home, Search, Info, MessageCircle, User, Building } from 'lucide-react';
 
 export const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,9 +26,9 @@ export const Navigation: React.FC = () => {
   const handleAdminClick = () => {
     const isAuthenticated = localStorage.getItem('admin_token') !== null;
     if (isAuthenticated) {
-      window.location.href = '/admin';
+      navigate('/admin');
     } else {
-      window.location.href = '/admin/login';
+      navigate('/admin/login');
     }
   };
 

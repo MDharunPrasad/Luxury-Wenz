@@ -38,9 +38,16 @@ const PropertiesNew = () => {
   // Load properties from localStorage on component mount
   useEffect(() => {
     const savedProperties = localStorage.getItem('admin_properties');
-    if (savedProperties) {
-      setProperties(JSON.parse(savedProperties));
+    const dataVersion = localStorage.getItem('admin_properties_version');
+    
+    // Force refresh if no version or old version
+    if (savedProperties && dataVersion === '2.0') {
+      const loadedProperties = JSON.parse(savedProperties);
+      console.log('Loaded properties from localStorage:', loadedProperties);
+      setProperties(loadedProperties);
     } else {
+      // Clear old data and create new sample properties
+      localStorage.removeItem('admin_properties');
       // Add sample properties when localStorage is empty
       const sampleProperties: Property[] = [
         {
@@ -58,7 +65,7 @@ const PropertiesNew = () => {
           parking: 2,
           featured: true,
           selectedAmenities: ["Swimming Pool", "Gym", "Security", "Elevator", "Air Conditioning", "City View", "Terrace"],
-          thumbnail: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600",
+          thumbnail: "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=800",
           images: [
             "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600",
             "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600",
@@ -81,7 +88,7 @@ const PropertiesNew = () => {
           parking: 3,
           featured: true,
           selectedAmenities: ["Swimming Pool", "Garden", "Security", "Air Conditioning", "Heating", "Furnished"],
-          thumbnail: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1600",
+          thumbnail: "https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=800",
           images: [
             "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1600",
             "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=1600",
@@ -104,7 +111,7 @@ const PropertiesNew = () => {
           parking: 1,
           featured: false,
           selectedAmenities: ["Garden", "Fireplace", "Parking", "Furnished"],
-          thumbnail: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600",
+          thumbnail: "https://images.pexels.com/photos/439391/pexels-photo-439391.jpeg?auto=compress&cs=tinysrgb&w=800",
           images: [
             "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=1600",
             "https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?w=1600",
@@ -127,7 +134,7 @@ const PropertiesNew = () => {
           parking: 1,
           featured: true,
           selectedAmenities: ["Swimming Pool", "Gym", "Security", "Ocean View", "Balcony"],
-          thumbnail: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1600",
+          thumbnail: "https://images.pexels.com/photos/206172/pexels-photo-206172.jpeg?auto=compress&cs=tinysrgb&w=800",
           images: [
             "https://images.unsplash.com/photo-1501183638710-841dd1904471?w=1600",
             "https://images.unsplash.com/photo-1472120360610-d971b9d7767c?w=1600"
@@ -149,7 +156,7 @@ const PropertiesNew = () => {
           parking: 2,
           featured: false,
           selectedAmenities: ["Fireplace", "Heating", "Parking", "Furnished"],
-          thumbnail: "https://images.unsplash.com/photo-1475855581698-2815c6a5b02e?w=1600",
+          thumbnail: "https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=800",
           images: [
             "https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=1600",
             "https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?w=1600"
@@ -159,6 +166,7 @@ const PropertiesNew = () => {
       ];
       
       localStorage.setItem('admin_properties', JSON.stringify(sampleProperties));
+      localStorage.setItem('admin_properties_version', '2.0');
       setProperties(sampleProperties);
     }
   }, []);
@@ -298,9 +306,17 @@ const PropertiesNew = () => {
                     src={property.thumbnail}
                     alt={property.title}
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      console.error('Image failed to load:', property.thumbnail);
+                      // Use a fallback placeholder image
+                      e.currentTarget.src = 'https://via.placeholder.com/400x300/e5e7eb/9ca3af?text=Property+Image';
+                    }}
+                    onLoad={() => {
+                      console.log('Image loaded successfully:', property.thumbnail);
+                    }}
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-full h-full flex items-center justify-center bg-gray-100">
                     <span className="text-gray-400">No Image</span>
                   </div>
                 )}
