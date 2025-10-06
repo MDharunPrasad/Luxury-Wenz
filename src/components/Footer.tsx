@@ -67,10 +67,6 @@ export const Footer: React.FC = () => {
                   <ArrowRight className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
                   Contact
                 </a>
-                <a href="/blog" className="flex items-center text-platinum/80 hover:text-champagne transition-colors duration-300 group">
-                  <ArrowRight className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-300" />
-                  Blog
-                </a>
               </div>
             </div>
 
