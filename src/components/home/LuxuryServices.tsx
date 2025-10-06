@@ -66,10 +66,10 @@ export const LuxuryServices: React.FC = () => {
               return (
                 <div
                   key={index}
-                  className="group cursor-pointer animate-fade-in-up"
+                  className="group cursor-pointer animate-fade-in-up h-full flex"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="relative p-8 rounded-2xl bg-white/40 backdrop-blur-lg border border-white/20 hover:bg-white/60 hover:border-gold/60 transition-all duration-500 hover:-translate-y-2 transform-gpu overflow-hidden shadow-md">
+                  <div className="relative p-8 rounded-2xl bg-white/40 backdrop-blur-lg border border-white/20 hover:bg-white/60 hover:border-gold/60 transition-all duration-500 hover:-translate-y-2 transform-gpu overflow-hidden shadow-md flex flex-col w-full">
                     {/* Background Gradient */}
                     <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-gradient-to-br ${service.gradient}`} />
                     
@@ -81,7 +81,7 @@ export const LuxuryServices: React.FC = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="relative">
+                    <div className="relative flex-grow">
                       <h3 className="font-playfair text-2xl font-bold mb-4 group-hover:text-champagne transition-colors duration-300 text-black">
                         {service.title}
                       </h3>

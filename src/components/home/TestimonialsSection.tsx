@@ -37,9 +37,9 @@ export const TestimonialsSection: React.FC = () => {
       <div className="container mx-auto px-6 relative">
         {/* Section Header */}
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="font-playfair text-5xl lg:text-6xl font-bold mb-6">
+          <h2 className="font-playfair text-5xl lg:text-6xl font-extrabold mb-6 text-black drop-shadow-sm">
             Client
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-champagne to-gold"> Testimonials</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#C5A74A] font-extrabold"> Testimonials</span>
           </h2>
           <p className="text-xl text-neutral-700 max-w-3xl mx-auto">
             Hear from our distinguished clients about their luxury real estate experiences 
@@ -55,16 +55,16 @@ export const TestimonialsSection: React.FC = () => {
               className="group animate-fade-in-up h-full"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="h-full flex flex-col p-8 rounded-2xl bg-[#1e305e] border border-blue-900 hover:bg-blue-800 hover:border-gold/60 transition-all duration-500 hover:-translate-y-2 transform-gpu relative overflow-hidden shadow-md" style={{ minHeight: '400px' }}>
+              <div className="h-full flex flex-col p-8 rounded-2xl bg-[#1e305e] border border-blue-900 hover:bg-blue-800 hover:border-[#D4AF37]/60 transition-all duration-500 hover:-translate-y-2 transform-gpu relative overflow-hidden shadow-md" style={{ minHeight: '400px' }}>
                 {/* Quote Icon */}
                 <div className="absolute top-6 right-6 opacity-20">
-                  <Quote className="w-8 h-8 text-gold" />
+                  <Quote className="w-8 h-8 text-[#D4AF37]" />
                 </div>
 
                 {/* Rating */}
                 <div className="flex space-x-1 mb-6">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-gold fill-current" />
+                    <Star key={i} className="w-5 h-5 text-[#D4AF37] fill-current" />
                   ))}
                 </div>
 
@@ -79,21 +79,21 @@ export const TestimonialsSection: React.FC = () => {
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}
-                      className="w-16 h-16 rounded-full object-cover ring-2 ring-gold/30 group-hover:ring-gold/60 transition-all duration-300"
+                      className="w-16 h-16 rounded-full object-cover ring-2 ring-[#D4AF37]/30 group-hover:ring-[#D4AF37]/60 transition-all duration-300"
                     />
                     <div className="absolute inset-0 rounded-full bg-[#D4AF37]/10 group-hover:bg-[#D4AF37]/20 transition-all duration-300" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-white text-lg group-hover:text-gold transition-colors duration-300">
+                    <h4 className="font-semibold text-white text-lg group-hover:text-[#D4AF37] transition-colors duration-300">
                       {testimonial.name}
                     </h4>
                     <p className="text-blue-200 text-sm">{testimonial.role}</p>
-                    <p className="text-gold text-sm font-medium">{testimonial.location}</p>
+                    <p className="text-[#D4AF37] text-sm font-medium">{testimonial.location}</p>
                   </div>
                 </div>
 
                 {/* Decorative Line */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-champagne to-gold transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#CF9D74] to-[#D4AF37] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
               </div>
             </div>
           ))}
@@ -108,7 +108,7 @@ export const TestimonialsSection: React.FC = () => {
             <p className="text-neutral-700 max-w-md">
               Experience the same level of exceptional service and luxury real estate expertise.
             </p>
-            <button className="px-8 py-4 rounded-full bg-gold text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <button className="px-8 py-4 rounded-full bg-[#D4AF37] text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
               Start Your Journey
             </button>
           </div>
