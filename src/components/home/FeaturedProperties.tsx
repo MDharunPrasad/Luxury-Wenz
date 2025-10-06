@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Bed, Bath, Square, MapPin, ArrowRight } from 'lucide-react';
 
 const featuredProperties = [
@@ -141,10 +142,13 @@ export const FeaturedProperties: React.FC = () => {
 
                   {/* View Details Button */}
                   <div className="mt-auto">
-                    <button className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl border-2 border-emerald text-emerald font-medium hover:bg-emerald hover:text-white transition-all duration-300 group/btn">
+                    <Link 
+                      to={`/property/${property.id}`}
+                      className="w-full flex items-center justify-center space-x-2 py-3 rounded-xl border-2 border-emerald text-emerald font-medium hover:bg-emerald hover:text-white transition-all duration-300 group/btn"
+                    >
                       <span>View Details</span>
                       <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

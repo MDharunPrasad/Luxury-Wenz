@@ -31,7 +31,8 @@ export const propertiesUpdated: Property[] = [
       propertiesSold: 150
     },
     description:
-      'Stunning penthouse with panoramic views, premium finishes, and a private terrace in the heart of Manhattan.'
+      'Stunning penthouse with panoramic views, premium finishes, and a private terrace in the heart of Manhattan.',
+    amenities: ['Swimming Pool', 'Gym', 'Security', 'Elevator', 'Air Conditioning', 'City View', 'Terrace', 'Parking']
   },
   {
     id: 2,
@@ -52,7 +53,8 @@ export const propertiesUpdated: Property[] = [
     tags: ['Pool', 'Garden', 'Smart Home'],
     parking: 3,
     yearBuilt: 2019,
-    description: 'Architect-designed villa featuring open spaces, smart home automation, and resort-style outdoor living.'
+    description: 'Architect-designed villa featuring open spaces, smart home automation, and resort-style outdoor living.',
+    amenities: ['Swimming Pool', 'Garden', 'Security', 'Air Conditioning', 'Heating', 'Furnished', 'Parking', 'City View']
   },
   {
     id: 3,
@@ -69,7 +71,8 @@ export const propertiesUpdated: Property[] = [
     ],
     tags: ['Garden', 'Renovated'],
     rating: 4.7,
-    description: 'Beautifully renovated historic townhouse with original architectural details, private garden, and modern amenities in Brooklyn.'
+    description: 'Beautifully renovated historic townhouse with original architectural details, private garden, and modern amenities in Brooklyn.',
+    amenities: ['Garden', 'Fireplace', 'Parking', 'Furnished', 'Air Conditioning', 'Heating']
   },
   {
     id: 4,
@@ -86,7 +89,8 @@ export const propertiesUpdated: Property[] = [
     ],
     tags: ['Ocean View', 'Balcony'],
     rating: 4.6,
-    description: 'Stunning beachfront condo with panoramic ocean views, spacious balcony, and direct beach access in prime Miami location.'
+    description: 'Stunning beachfront condo with panoramic ocean views, spacious balcony, and direct beach access in prime Miami location.',
+    amenities: ['Swimming Pool', 'Gym', 'Security', 'Ocean View', 'Balcony', 'Air Conditioning', 'Elevator']
   },
   {
     id: 5,
@@ -103,7 +107,8 @@ export const propertiesUpdated: Property[] = [
     ],
     tags: ['Mountain View', 'Fireplace'],
     rating: 4.8,
-    description: 'Luxurious alpine chalet with breathtaking mountain views, cozy fireplace, and ski-in/ski-out access in prestigious Aspen.'
+    description: 'Luxurious alpine chalet with breathtaking mountain views, cozy fireplace, and ski-in/ski-out access in prestigious Aspen.',
+    amenities: ['Fireplace', 'Heating', 'Parking', 'Furnished', 'Mountain View']
   },
   {
     id: 6,
@@ -120,7 +125,8 @@ export const propertiesUpdated: Property[] = [
     ],
     tags: ['Dock', 'Panoramic Windows'],
     rating: 4.7,
-    description: 'Modern lakefront residence with floor-to-ceiling windows, private dock, and stunning panoramic views of Lake Tahoe.'
+    description: 'Modern lakefront residence with floor-to-ceiling windows, private dock, and stunning panoramic views of Lake Tahoe.',
+    amenities: ['Parking', 'Furnished', 'Fireplace', 'Heating', 'Air Conditioning']
   },
   {
     id: 7,
@@ -137,7 +143,8 @@ export const propertiesUpdated: Property[] = [
     ],
     tags: ['Open Plan', 'High Ceilings'],
     rating: 4.5,
-    description: 'Contemporary minimalist loft in the heart of SoHo featuring open floor plan, soaring ceilings, and abundant natural light.'
+    description: 'Contemporary minimalist loft in the heart of SoHo featuring open floor plan, soaring ceilings, and abundant natural light.',
+    amenities: ['Air Conditioning', 'Heating', 'Elevator', 'City View', 'Furnished']
   },
   {
     id: 8,
@@ -154,6 +161,7 @@ export const propertiesUpdated: Property[] = [
     ],
     tags: ['Vineyard', 'Guest House'],
     rating: 4.9,
-    description: 'Magnificent countryside estate with working vineyard, guest house, and rolling hills in the prestigious Napa Valley wine country.'
+    description: 'Magnificent countryside estate with working vineyard, guest house, and rolling hills in the prestigious Napa Valley wine country.',
+    amenities: ['Garden', 'Parking', 'Furnished', 'Fireplace', 'Air Conditioning', 'Heating', 'Security']
   }
 ];

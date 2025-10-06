@@ -8,7 +8,20 @@ import {
   Ruler,
   Car,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Waves,
+  Dumbbell,
+  ParkingCircle,
+  TreePine,
+  Shield,
+  Building2,
+  Wind,
+  Flame,
+  Home,
+  PawPrint,
+  Eye,
+  Mountain,
+  Check
 } from 'lucide-react';
 
 const PropertyDetails = () => {
@@ -23,6 +36,29 @@ const PropertyDetails = () => {
     setCurrentImageIndex((prev) => (prev - 1 + property.images.length) % property.images.length);
   };
 
+  // Helper function to get amenity icon
+  const getAmenityIcon = (amenity: string) => {
+    const iconMap: { [key: string]: any } = {
+      'Swimming Pool': Waves,
+      'Gym': Dumbbell,
+      'Parking': ParkingCircle,
+      'Garden': TreePine,
+      'Security': Shield,
+      'Elevator': Building2,
+      'Air Conditioning': Wind,
+      'Heating': Flame,
+      'Balcony': Home,
+      'Furnished': Home,
+      'Pet Friendly': PawPrint,
+      'Ocean View': Eye,
+      'City View': Building2,
+      'Terrace': Mountain,
+      'Fireplace': Flame,
+      'Walk-in Closet': Home
+    };
+    return iconMap[amenity] || Check;
+  };
+
   // Sample property data - replace with actual data from your API
   const property = {
     id: id || '1',
@@ -35,6 +71,7 @@ const PropertyDetails = () => {
     area: '3,200 sqft',
     parking: '2 cars',
     description: 'Stunning modern villa with panoramic views, featuring an open floor plan, high-end finishes, and resort-style amenities.',
+    amenities: ['Swimming Pool', 'Gym', 'Security', 'Parking', 'Air Conditioning', 'Heating', 'Garden', 'City View', 'Terrace', 'Furnished'],
     images: [
       'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
       'https://images.unsplash.com/photo-1600607687929-597b7d5f7c1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
@@ -178,6 +215,29 @@ const PropertyDetails = () => {
               <p className="text-gray-700 mb-6 leading-relaxed">{property.description}</p>
               <p className="text-gray-600">This stunning property features floor-to-ceiling windows, a gourmet kitchen with high-end appliances, and a spacious master suite with a luxurious bathroom. The outdoor space includes a swimming pool, landscaped gardens, and multiple entertainment areas perfect for hosting gatherings.</p>
             </div>
+
+            {/* Amenities Section */}
+            {property.amenities && property.amenities.length > 0 && (
+              <div className="bg-white rounded-xl shadow-md p-6">
+                <h2 className="text-xl font-semibold mb-6">Amenities & Features</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {property.amenities.map((amenity, index) => {
+                    const IconComponent = getAmenityIcon(amenity);
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center space-x-3 p-3 bg-emerald-50 rounded-lg hover:bg-emerald-100 transition-colors duration-200"
+                      >
+                        <div className="flex-shrink-0 w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center">
+                          <IconComponent className="w-5 h-5 text-emerald-600" />
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">{amenity}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Sidebar */}

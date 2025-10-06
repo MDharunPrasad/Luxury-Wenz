@@ -23,6 +23,7 @@ export interface Property {
     propertiesSold?: number;
   };
   description?: string;
+  amenities?: string[];
 }
 
 export const properties: Property[] = [

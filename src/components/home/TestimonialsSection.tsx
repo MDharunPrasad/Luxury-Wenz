@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Star, Quote } from 'lucide-react';
 
 const testimonials = [
@@ -108,9 +109,12 @@ export const TestimonialsSection: React.FC = () => {
             <p className="text-neutral-700 max-w-md">
               Experience the same level of exceptional service and luxury real estate expertise.
             </p>
-            <button className="px-8 py-4 rounded-full bg-[#D4AF37] text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <Link 
+              to="/contact"
+              className="inline-block px-8 py-4 rounded-full bg-[#D4AF37] text-white font-semibold hover:shadow-2xl hover:scale-105 transition-all duration-300"
+            >
               Start Your Journey
-            </button>
+            </Link>
           </div>
         </div>
       </div>
