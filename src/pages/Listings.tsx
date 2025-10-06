@@ -139,7 +139,7 @@ export const Listings: React.FC = () => {
                   }}
                 />
                 {property.featured && (
-                  <div className="absolute top-4 left-4 bg-gradient-to-r from-emerald to-champagne text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="absolute top-4 left-4 bg-[#D4AF37] text-white px-3 py-1 rounded-full text-sm font-medium">
                     Featured
                   </div>
                 )}
@@ -199,41 +199,11 @@ export const Listings: React.FC = () => {
                   </div>
                   <Link
                     to={`/property/${property.id}`}
-                    className="w-full sm:w-auto text-center bg-gradient-to-r from-emerald to-champagne text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-emerald/20 hover:scale-[1.02] active:scale-95 transition-all duration-300 text-sm font-medium"
+                    className="w-full sm:w-auto text-center bg-[#D4AF37] text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:shadow-[#D4AF37]/30 hover:scale-[1.02] active:scale-95 transition-all duration-300 text-sm font-medium"
                   >
                     View Details
                   </Link>
                 </div>
-                
-                {/* Agent Info */}
-                {property.agent && (
-                  <div className="mt-4 pt-4 border-t border-gray-100 flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden mr-3 flex-shrink-0">
-                      {property.agent.image ? (
-                        <img 
-                          src={property.agent.image} 
-                          alt={property.agent.name}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement;
-                            target.onerror = null;
-                            target.src = '/images/placeholder-avatar.jpg';
-                          }}
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-emerald-100 flex items-center justify-center">
-                          <span className="text-emerald-700 font-medium text-sm">
-                            {property.agent.name.split(' ').map(n => n[0]).join('')}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="truncate">
-                      <p className="text-sm font-medium text-gray-800 truncate">{property.agent.name}</p>
-                      <p className="text-xs text-gray-500 truncate">{property.agent.title}</p>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
           ))}
