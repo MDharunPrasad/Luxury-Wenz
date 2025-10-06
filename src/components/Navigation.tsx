@@ -77,7 +77,7 @@ export const Navigation: React.FC = () => {
               {/* Admin Button */}
               <button
                 onClick={handleAdminClick}
-                className="flex items-center space-x-2 px-6 py-3 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+                className="flex items-center space-x-2 px-6 py-3 rounded-full bg-[#D4AF37] text-white font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
                 <User className="w-4 h-4" />
                 <span>Admin</span>
@@ -128,7 +128,7 @@ export const Navigation: React.FC = () => {
                     handleAdminClick();
                     setIsOpen(false);
                   }}
-                  className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-gradient-to-r from-emerald to-champagne text-white font-medium hover:shadow-lg transition-all duration-300 w-full"
+                  className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-[#D4AF37] text-white font-medium hover:shadow-lg transition-all duration-300 w-full"
                 >
                   <User className="w-5 h-5" />
                   <span>Admin</span>

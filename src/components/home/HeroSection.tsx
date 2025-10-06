@@ -14,21 +14,21 @@ const HeroSection = () => {
     maxPrice: ''
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<Array<{field: string; message: string}>>([]);
+  const [errors, setErrors] = useState<Array<{ field: string; message: string }>>([]);
 
   console.log('Current searchParams:', searchParams); // Debug log
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target as HTMLInputElement | HTMLSelectElement;
     const { name, value } = target;
-    
+
     console.log(`Field changed - ${name}:`, value);
-    
+
     setSearchParams(prev => ({
       ...prev,
       [name]: value
     }));
-    
+
     setErrors(prev => prev.filter(e => e.field !== name));
   };
 
@@ -36,28 +36,28 @@ const HeroSection = () => {
     e.preventDefault();
     setIsLoading(true);
     setErrors([]);
-    
+
     try {
       // Validate form
-      const newErrors: Array<{field: string; message: string}> = [];
+      const newErrors: Array<{ field: string; message: string }> = [];
       if (!searchParams.location) {
         newErrors.push({ field: 'location', message: 'Location is required' });
       }
-      
+
       if (newErrors.length > 0) {
         setErrors(newErrors);
         return;
       }
-      
+
       // Construct search URL with query parameters
       const params = new URLSearchParams();
       if (searchParams.location) params.append('location', searchParams.location);
       if (searchParams.propertyType) params.append('type', searchParams.propertyType);
       if (searchParams.maxPrice) params.append('max_price', searchParams.maxPrice);
-      
+
       // Navigate to listings page with search parameters
       window.location.href = `/listings?${params.toString()}`;
-      
+
     } catch (error) {
       console.error('Search error:', error);
       setErrors([{ field: 'general', message: 'An error occurred during search' }]);
@@ -74,7 +74,7 @@ const HeroSection = () => {
     }}>
       {/* Background Image with Parallax Effect */}
       <div className="absolute inset-0 z-1">
-        <div 
+        <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: 'url(/images/hero-bg.jpg)',
@@ -94,7 +94,7 @@ const HeroSection = () => {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
               <span className="text-white drop-shadow-xl">Luxury Living,</span>
               <br className="hidden sm:block" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-champagne to-gold">
+              <span className="bg-gradient-to-r from-yellow-400/80 to-yellow-200/40 bg-clip-text text-transparent">
                 Perfected
               </span>
             </h1>
@@ -108,7 +108,7 @@ const HeroSection = () => {
             <div className="backdrop-blur-lg bg-white/10 backdrop-saturate-150 rounded-2xl border border-white/20 shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:bg-white/15 hover:border-white/30 transform hover:-translate-y-1">
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6">
-                {/* Location */}
+                  {/* Location */}
                   {/* Location Input */}
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -123,15 +123,14 @@ const HeroSection = () => {
                       placeholder="Enter location"
                       aria-label="Location"
                       aria-invalid={errors.some(e => e.field === 'location')}
-                      className={`w-full pl-11 pr-4 py-3.5 text-base rounded-xl bg-white/20 backdrop-blur-sm border-2 ${
-                        errors.some(e => e.field === 'location') 
-                          ? 'border-red-500' 
+                      className={`w-full pl-11 pr-4 py-3.5 text-base rounded-xl bg-white/20 backdrop-blur-sm border-2 ${errors.some(e => e.field === 'location')
+                          ? 'border-red-500'
                           : 'border-white/30 focus:ring-2 focus:ring-champagne/70 focus:border-champagne/70 hover:border-champagne/50'
-                      } text-white placeholder-white/70 focus:outline-none transition-all duration-300`}
+                        } text-white placeholder-white/70 focus:outline-none transition-all duration-300`}
                     />
                   </div>
-                
-                {/* Property Type */}
+
+                  {/* Property Type */}
                   {/* Property Type Dropdown */}
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -153,8 +152,8 @@ const HeroSection = () => {
                     </select>
                     <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/50 pointer-events-none" />
                   </div>
-                
-                {/* Price Range */}
+
+                  {/* Price Range */}
                   {/* Price Range Dropdown */}
                   <div className="relative group">
                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -180,16 +179,15 @@ const HeroSection = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className={`relative w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-[#D4AF37] to-[#C5A74A] hover:from-[#C5A74A] hover:to-[#B59D42] text-white text-base font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[#C5A74A]/20 ${
-                      isLoading 
-                        ? 'opacity-80 cursor-not-allowed' 
+                    className={`relative w-full md:w-auto flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-[#D4AF37] to-[#C5A74A] hover:from-[#C5A74A] hover:to-[#B59D42] text-white text-base font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[#C5A74A]/20 ${isLoading
+                        ? 'opacity-80 cursor-not-allowed'
                         : 'hover:scale-[1.02] active:scale-[0.98] transform'
-                    } overflow-hidden group`}
+                      } overflow-hidden group`}
                     aria-busy={isLoading}
                   >
                     {/* Animated background effect */}
                     <span className="absolute inset-0 bg-white/10 group-hover:bg-white/20 transition-all duration-300 opacity-0 group-hover:opacity-100"></span>
-                    
+
                     {/* Button content */}
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       {isLoading ? (
@@ -209,7 +207,7 @@ const HeroSection = () => {
                     </span>
                   </button>
                 </div>
-                
+
                 {/* Error messages */}
                 <div className="px-6 pb-4 -mt-2">
                   {errors.some(e => e.field === 'location') && (

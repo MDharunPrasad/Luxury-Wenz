@@ -107,7 +107,7 @@ export const FeaturedProperties: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-jet/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
                   {/* Price Tag */}
-                  <div className="absolute bottom-4 left-4 px-4 py-2 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-bold text-sm md:text-base">
+                  <div className="absolute bottom-4 left-4 px-4 py-2 rounded-full bg-[#D4AF37] text-white font-bold text-sm md:text-base">
                     {property.price}
                   </div>
                 </div>
