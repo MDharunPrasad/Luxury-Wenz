@@ -105,14 +105,14 @@ export const About: React.FC = () => {
           <div 
             className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80')] bg-cover bg-center"
             style={{
-              filter: 'brightness(0.9) contrast(1.1)',
+              filter: 'brightness(1) contrast(1.1)',
               transform: 'scale(1.1)',
               transformOrigin: 'center',
               willChange: 'transform',
               transition: 'transform 10s cubic-bezier(0.2, 0.96, 0.34, 0.97)'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-jet/80 via-jet/60 to-jet/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-jet/40 via-jet/30 to-jet/50" />
         </div>
         
         <div className="relative z-10 w-full max-w-7xl px-6 mx-auto text-center">
@@ -162,17 +162,16 @@ export const About: React.FC = () => {
           >
             <a 
               href="/listings" 
-              className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-emerald to-emerald-600 text-white font-semibold hover:shadow-2xl hover:shadow-emerald/30 transition-all duration-300 overflow-hidden"
+              className="group relative px-8 py-4 rounded-full bg-[#D4AF37] text-white font-semibold hover:shadow-2xl hover:shadow-[#D4AF37]/30 hover:scale-105 transition-all duration-300 overflow-hidden"
             >
               <span className="relative z-10 flex items-center">
                 Explore Our Portfolio
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </span>
-              <span className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
             </a>
             <a 
               href="/contact" 
-              className="group relative px-8 py-4 rounded-full border-2 border-white/20 text-white font-semibold hover:bg-white/10 hover:border-white/40 transition-all duration-300 overflow-hidden"
+              className="group relative px-8 py-4 rounded-full border-2 border-white/30 text-white font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300 overflow-hidden"
             >
               <span className="relative z-10 flex items-center">
                 Schedule a Consultation
@@ -312,10 +311,10 @@ export const About: React.FC = () => {
               Our Promise to You
             </span>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-jet mb-6 leading-tight">
-              Redefining <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-champagne">Luxury</span> Living
+              Redefining <span className="text-[#D4AF37]">Luxury</span> Living
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-emerald to-champagne mx-auto mb-8"></div>
-            <p className="text-lg text-gray-600">
+            <div className="w-24 h-1 bg-gradient-to-r from-[#D4AF37] to-champagne mx-auto mb-8"></div>
+            <p className="text-lg text-gray-600 leading-relaxed">
               We don't just sell properties; we craft extraordinary living experiences that exceed expectations and create lasting value for generations to come.
             </p>
           </motion.div>
@@ -391,7 +390,7 @@ export const About: React.FC = () => {
           >
             <a 
               href="/services" 
-              className="inline-flex items-center px-8 py-4 rounded-full bg-gradient-to-r from-emerald to-champagne text-white font-semibold hover:shadow-lg hover:shadow-emerald-200 transition-all duration-300 group"
+              className="inline-flex items-center px-8 py-4 rounded-full bg-[#D4AF37] text-white font-semibold hover:shadow-lg hover:shadow-[#D4AF37]/30 hover:scale-105 transition-all duration-300 group"
             >
               Discover Our Services
               <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -502,7 +501,7 @@ export const About: React.FC = () => {
           >
             <a 
               href="/about/team" 
-              className="inline-flex items-center px-8 py-4 rounded-full border-2 border-amber-500 text-amber-700 hover:bg-amber-50 font-semibold transition-colors duration-300 group"
+              className="inline-flex items-center px-8 py-4 rounded-full bg-[#D4AF37] text-white font-semibold hover:shadow-lg hover:shadow-[#D4AF37]/30 hover:scale-105 transition-all duration-300 group"
             >
               View Full Team
               <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -547,11 +546,11 @@ export const About: React.FC = () => {
                 <motion.a 
                   whileHover={{ 
                     scale: 1.03, 
-                    boxShadow: '0 10px 25px -5px rgba(245, 158, 11, 0.3)' 
+                    boxShadow: '0 10px 25px -5px rgba(212, 175, 55, 0.3)' 
                   }}
                   whileTap={{ scale: 0.98 }}
                   href="/contact" 
-                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-white font-semibold hover:shadow-xl transition-all duration-300 flex items-center group"
+                  className="px-8 py-4 rounded-xl bg-[#D4AF37] text-white font-semibold hover:shadow-xl transition-all duration-300 flex items-center group"
                 >
                   Schedule a Consultation
                   <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -561,12 +560,12 @@ export const About: React.FC = () => {
                 <motion.a 
                   whileHover={{ 
                     scale: 1.03,
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    borderColor: 'rgba(255, 255, 255, 0.4)'
+                    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                    borderColor: 'rgba(255, 255, 255, 0.5)'
                   }}
                   whileTap={{ scale: 0.98 }}
                   href="/listings" 
-                  className="px-8 py-4 rounded-xl border-2 border-white/20 bg-white/5 text-white font-semibold hover:border-white/40 backdrop-blur-sm transition-all duration-300 flex items-center group"
+                  className="px-8 py-4 rounded-xl border-2 border-white/30 bg-white/5 text-white font-semibold hover:border-white/50 backdrop-blur-sm transition-all duration-300 flex items-center group"
                 >
                   Explore Our Portfolio
                   <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

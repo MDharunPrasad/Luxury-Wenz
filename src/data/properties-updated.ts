@@ -68,7 +68,8 @@ export const propertiesUpdated: Property[] = [
       '/images/properties/3-2.jpg'
     ],
     tags: ['Garden', 'Renovated'],
-    rating: 4.7
+    rating: 4.7,
+    description: 'Beautifully renovated historic townhouse with original architectural details, private garden, and modern amenities in Brooklyn.'
   },
   {
     id: 4,
@@ -84,7 +85,8 @@ export const propertiesUpdated: Property[] = [
       '/images/properties/4-2.jpg'
     ],
     tags: ['Ocean View', 'Balcony'],
-    rating: 4.6
+    rating: 4.6,
+    description: 'Stunning beachfront condo with panoramic ocean views, spacious balcony, and direct beach access in prime Miami location.'
   },
   {
     id: 5,
@@ -100,7 +102,8 @@ export const propertiesUpdated: Property[] = [
       '/images/properties/5-2.jpg'
     ],
     tags: ['Mountain View', 'Fireplace'],
-    rating: 4.8
+    rating: 4.8,
+    description: 'Luxurious alpine chalet with breathtaking mountain views, cozy fireplace, and ski-in/ski-out access in prestigious Aspen.'
   },
   {
     id: 6,
@@ -116,7 +119,8 @@ export const propertiesUpdated: Property[] = [
       '/images/properties/1-2.jpg'  // Using available image 1-2.jpg as a fallback
     ],
     tags: ['Dock', 'Panoramic Windows'],
-    rating: 4.7
+    rating: 4.7,
+    description: 'Modern lakefront residence with floor-to-ceiling windows, private dock, and stunning panoramic views of Lake Tahoe.'
   },
   {
     id: 7,
@@ -132,7 +136,8 @@ export const propertiesUpdated: Property[] = [
       '/images/properties/2-2.jpg'  // Using available image 2-2.jpg as a fallback
     ],
     tags: ['Open Plan', 'High Ceilings'],
-    rating: 4.5
+    rating: 4.5,
+    description: 'Contemporary minimalist loft in the heart of SoHo featuring open floor plan, soaring ceilings, and abundant natural light.'
   },
   {
     id: 8,
@@ -148,6 +153,7 @@ export const propertiesUpdated: Property[] = [
       '/images/properties/8-2.jpg'
     ],
     tags: ['Vineyard', 'Guest House'],
-    rating: 4.9
+    rating: 4.9,
+    description: 'Magnificent countryside estate with working vineyard, guest house, and rolling hills in the prestigious Napa Valley wine country.'
   }
 ];
